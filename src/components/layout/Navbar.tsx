@@ -47,8 +47,8 @@ export default function Navbar() {
               </button>
               
               {langMenuOpen && (
-                <div className="absolute top-full right-0 mt-2 w-24 bg-white border border-[var(--color-eulance-border)] rounded-md shadow-lg py-1">
-                  {(['en', 'it', 'pt'] as Language[]).map((lang) => (
+                <div className="absolute top-full right-0 mt-2 w-28 bg-white border border-[var(--color-eulance-border)] rounded-md shadow-lg py-1 z-50">
+                  {(['en', 'it', 'pt', 'es', 'de'] as Language[]).map((lang) => (
                     <button
                       key={lang}
                       onClick={() => handleLanguageChange(lang)}
@@ -91,8 +91,8 @@ export default function Navbar() {
             
             <div className="px-3 py-2">
               <div className="font-medium text-[var(--color-eulance-text)] mb-2">Language</div>
-              <div className="flex gap-2">
-                {(['en', 'it', 'pt'] as Language[]).map((lang) => (
+              <div className="flex flex-wrap gap-2">
+                {(['en', 'it', 'pt', 'es', 'de'] as Language[]).map((lang) => (
                   <button
                     key={lang}
                     onClick={() => handleLanguageChange(lang)}
