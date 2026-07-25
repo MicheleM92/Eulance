@@ -2,67 +2,90 @@
 
 import Link from "next/link";
 import { useLanguage } from "@/lib/i18n/LanguageContext";
+import { Globe, ShieldCheck } from "lucide-react";
 
 export default function Footer() {
   const { dict } = useLanguage();
 
   return (
-    <footer className="bg-[var(--color-eulance-navy)] text-white pt-16 pb-8">
+    <footer className="bg-[var(--color-eulance-navy)] text-white pt-16 pb-8 border-t border-blue-900">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="grid grid-cols-1 md:grid-cols-4 gap-8 mb-12">
           <div className="col-span-1 md:col-span-1">
             <Link href="/" className="flex items-center gap-2 mb-4">
-              <div className="w-8 h-8 bg-white text-[var(--color-eulance-navy)] rounded flex items-center justify-center font-bold text-xl">
+              <div className="w-8 h-8 bg-white text-[var(--color-eulance-navy)] rounded flex items-center justify-center font-black text-xl">
                 E
               </div>
-              <span className="font-bold text-xl text-white tracking-tight">
+              <span className="font-extrabold text-xl text-white tracking-tight">
                 EULANCE
               </span>
             </Link>
-            <p className="text-[var(--color-eulance-border)] text-sm mb-6">
-              {dict.hero.headline}
+            <p className="text-white/70 text-xs leading-relaxed mb-4">
+              Europe's Fair Freelance Infrastructure. Connecting independent talent and companies with instant escrow and automated EU VAT compliance.
             </p>
+            <div className="inline-flex items-center gap-1.5 px-3 py-1 bg-white/10 rounded-full text-[11px] font-bold text-[var(--color-eulance-gold)]">
+              <ShieldCheck size={14} /> EU Digital Sovereignty
+            </div>
           </div>
           
           <div>
-            <h3 className="font-semibold text-lg mb-4 text-[var(--color-eulance-gold)]">{dict.footer.product}</h3>
-            <ul className="space-y-2">
+            <h3 className="font-bold text-sm uppercase tracking-wider mb-4 text-[var(--color-eulance-gold)]">Navigation</h3>
+            <ul className="space-y-2 text-xs">
               <li>
-                <Link href="/prototype" className="text-[var(--color-eulance-border)] hover:text-white transition-colors text-sm">
-                  {dict.footer.mvp}
+                <Link href="/" className="text-white/70 hover:text-white transition-colors">
+                  Home Page
                 </Link>
               </li>
               <li>
-                <Link href="/business-plan" className="text-[var(--color-eulance-border)] hover:text-white transition-colors text-sm">
-                  {dict.footer.businessPlan}
+                <Link href="/prototype" className="text-white/70 hover:text-white transition-colors">
+                  MVP Prototype Entry
+                </Link>
+              </li>
+              <li>
+                <Link href="/prototype/client" className="text-white/70 hover:text-white transition-colors">
+                  Company Portal
+                </Link>
+              </li>
+              <li>
+                <Link href="/prototype/freelancer" className="text-white/70 hover:text-white transition-colors">
+                  Freelancer Portal
+                </Link>
+              </li>
+              <li>
+                <Link href="/business-plan" className="text-white/70 hover:text-white transition-colors">
+                  Business Plan (2027–2030)
                 </Link>
               </li>
             </ul>
           </div>
 
           <div>
-            <h3 className="font-semibold text-lg mb-4 text-[var(--color-eulance-gold)]">Legal</h3>
-            <ul className="space-y-2">
-              <li className="text-[var(--color-eulance-border)] text-sm">
-                {dict.footer.legal}
-              </li>
+            <h3 className="font-bold text-sm uppercase tracking-wider mb-4 text-[var(--color-eulance-gold)]">Key Features</h3>
+            <ul className="space-y-2 text-xs text-white/70">
+              <li>AI-Powered Candidate Match</li>
+              <li>Licensed EU Escrow Payments</li>
+              <li>Localized eIDAS Contracts</li>
+              <li>Automated Reverse Charge VAT</li>
+              <li>0% Freelancer Launch Promo</li>
             </ul>
           </div>
 
           <div>
-            <h3 className="font-semibold text-lg mb-4 text-[var(--color-eulance-gold)]">Contact</h3>
-            <ul className="space-y-2">
-              <li className="text-[var(--color-eulance-border)] text-sm">
-                {dict.footer.contact}
-              </li>
-            </ul>
+            <h3 className="font-bold text-sm uppercase tracking-wider mb-4 text-[var(--color-eulance-gold)]">EU Compliance</h3>
+            <p className="text-xs text-white/70 leading-relaxed mb-3">
+              Designed under EU Directive 2019/1152 and VAT Directive 2006/112/EC. GDPR compliant by design.
+            </p>
+            <p className="text-[11px] text-white/50">
+              EULANCE B.V. • Lisbon | Milan | Berlin
+            </p>
           </div>
         </div>
         
-        <div className="border-t border-[var(--color-eulance-blue)]/30 pt-8 flex flex-col md:flex-row justify-between items-center text-xs text-[var(--color-eulance-border)]">
-          <p>&copy; {new Date().getFullYear()} EULANCE. All rights reserved.</p>
-          <div className="mt-4 md:mt-0 space-x-4">
-            <span>Built for the European Union</span>
+        <div className="border-t border-white/10 pt-8 flex flex-col md:flex-row justify-between items-center text-xs text-white/60">
+          <p>© 2027-2030 EULANCE. All rights reserved. Built for Europe.</p>
+          <div className="mt-4 md:mt-0 flex items-center gap-2 text-white/60">
+            <Globe size={14} className="text-[var(--color-eulance-gold)]" />
+            <span>Serving all 27 EU Member States</span>
           </div>
         </div>
       </div>
