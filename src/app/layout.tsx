@@ -2,6 +2,7 @@ import type { Metadata } from "next";
 import { Inter } from "next/font/google";
 import "./globals.css";
 import { LanguageProvider } from "@/lib/i18n/LanguageContext";
+import { DemoStateProvider } from "@/lib/context/DemoStateContext";
 import Navbar from "@/components/layout/Navbar";
 import Footer from "@/components/layout/Footer";
 
@@ -27,9 +28,11 @@ export default function RootLayout({
     >
       <body className="min-h-full flex flex-col font-sans">
         <LanguageProvider>
-          <Navbar />
-          <main className="flex-1">{children}</main>
-          <Footer />
+          <DemoStateProvider>
+            <Navbar />
+            <main className="flex-1">{children}</main>
+            <Footer />
+          </DemoStateProvider>
         </LanguageProvider>
       </body>
     </html>

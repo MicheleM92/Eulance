@@ -4,107 +4,187 @@ export interface Freelancer {
   role: string;
   country: string;
   countryCode: string;
+  city: string;
   rating: number;
   jobsCompleted: number;
   hourlyRate: number;
   verified: boolean;
   founder: boolean;
+  founderBadgeNumber?: number;
   skills: string[];
   avatar: string;
   bio: string;
   availability: string;
   vatNumber: string;
+  languages: string[];
+  portfolioItems?: { title: string; category: string; link?: string }[];
 }
 
 export interface Project {
   id: string;
   title: string;
+  category: string;
   client: string;
   clientCountry: string;
+  clientCity: string;
+  clientVat: string;
   budget: string;
   budgetValue: number;
-  status: "Open" | "In Progress" | "Completed";
+  status: "Open" | "In Progress" | "Under Review" | "Completed";
   postedDate: string;
   description: string;
   skillsRequired: string[];
   matchScore: number;
   proposalsCount: number;
+  duration: string;
+  remotePreference: string;
+  experienceLevel: string;
 }
 
-export interface Contract {
+export interface Proposal {
   id: string;
+  projectId: string;
+  freelancerId: string;
+  freelancerName: string;
+  freelancerCountry: string;
+  bidAmount: number;
+  deliveryDays: number;
+  coverLetter: string;
+  createdAt: string;
+  status: "Pending" | "Accepted" | "Declined";
+}
+
+export interface MessageItem {
+  id: string;
+  conversationId: string;
+  senderId: string;
+  senderName: string;
+  senderRole: "client" | "freelancer";
+  text: string;
+  timestamp: string;
+  attachment?: {
+    name: string;
+    type: "pdf" | "zip" | "image" | "offer";
+    url?: string;
+  };
+  offerData?: {
+    projectId: string;
+    projectTitle: string;
+    amount: number;
+    deadline: string;
+    status: "Pending" | "Accepted" | "Declined";
+  };
+}
+
+export interface ContractItem {
+  id: string;
+  projectId: string;
   projectName: string;
   clientName: string;
+  clientCountry: string;
   clientVat: string;
+  freelancerId: string;
   freelancerName: string;
+  freelancerCountry: string;
   freelancerVat: string;
   amount: number;
-  clientFee: number;
-  freelancerFee: number;
-  status: "Draft" | "Signed" | "Funded" | "Delivered" | "Completed";
+  clientFee: number; // 15% = 150
+  freelancerFee: number; // 5% = 50
+  clientTotalPaid: number; // 1150
+  freelancerNetPayout: number; // 950
+  status: "Draft" | "Client_Signed" | "Active" | "Delivered" | "In Revision" | "Completed";
   escrowStatus: "Pending" | "Funded" | "Released";
   deadline: string;
   jurisdiction: string;
+  contractLanguage: string;
+  signedByClientAt?: string;
+  signedByFreelancerAt?: string;
+  submissionNote?: string;
+  submissionFile?: string;
+  reviewStars?: number;
+  reviewComment?: string;
 }
 
-export const freelancers: Freelancer[] = [
+export const initialFreelancers: Freelancer[] = [
   {
     id: "f1",
-    name: "Marco Rossi",
-    role: "Senior React & Next.js Architect",
-    country: "Italy",
-    countryCode: "IT",
+    name: "Tiago Mendes",
+    role: "Senior React & Next.js Developer",
+    country: "Portugal",
+    countryCode: "PT",
+    city: "Lisbon",
     rating: 4.9,
     jobsCompleted: 34,
     hourlyRate: 65,
     verified: true,
     founder: true,
+    founderBadgeNumber: 42,
     skills: ["React", "Next.js", "TypeScript", "Tailwind CSS", "Stripe"],
-    avatar: "MR",
-    bio: "Senior frontend architect with 8+ years building enterprise SaaS and Next.js platforms.",
+    avatar: "TM",
+    bio: "I'm a frontend developer with 8 years of experience. I specialize in Next.js, React, and building fast SaaS and fintech apps.",
     availability: "Available now (30h/wk)",
-    vatNumber: "IT09876543210"
+    vatNumber: "PT509123456",
+    languages: ["Portuguese (Native)", "English (Fluent)", "Spanish (Working)"],
+    portfolioItems: [
+      { title: "Payment Gateway Dashboard", category: "Fintech UI" },
+      { title: "Next.js E-commerce Template", category: "Full-Stack Web" }
+    ]
   },
   {
     id: "f2",
     name: "Ana Silva",
-    role: "Lead UX/UI & Product Designer",
+    role: "UX/UI & Product Designer",
     country: "Portugal",
     countryCode: "PT",
+    city: "Lisbon",
     rating: 5.0,
     jobsCompleted: 42,
     hourlyRate: 55,
     verified: true,
     founder: true,
+    founderBadgeNumber: 18,
     skills: ["Figma", "Design Systems", "Prototyping", "User Research", "Tailwind"],
     avatar: "AS",
-    bio: "Award-winning product designer specializing in fintech and European startup branding.",
+    bio: "Product designer focused on clean, user-friendly UI/UX. Experienced with SaaS, fintech, and marketplaces using Figma.",
     availability: "Available in 1 week",
-    vatNumber: "PT501234567"
+    vatNumber: "PT501234567",
+    languages: ["Portuguese (Native)", "English (Fluent)", "French (Intermediate)"],
+    portfolioItems: [
+      { title: "Tech Startup Brand & App Design", category: "Design System" },
+      { title: "Banking App Mobile Flow", category: "UX Research" }
+    ]
   },
   {
     id: "f3",
     name: "Sofia Santos",
-    role: "Full-Stack TypeScript Specialist",
+    role: "Full-Stack TypeScript Developer",
     country: "Spain",
     countryCode: "ES",
+    city: "Barcelona",
     rating: 4.95,
     jobsCompleted: 29,
     hourlyRate: 70,
     verified: true,
     founder: true,
+    founderBadgeNumber: 7,
     skills: ["TypeScript", "Node.js", "GraphQL", "PostgreSQL", "React"],
     avatar: "SS",
-    bio: "Full-stack engineer building fast, secure web apps for high-growth tech scaleups.",
+    bio: "Full-stack developer (Node.js/React). I build secure, scalable web apps and REST APIs from scratch.",
     availability: "Available now (40h/wk)",
-    vatNumber: "ESB12345678"
+    vatNumber: "ESB12345678",
+    languages: ["Spanish (Native)", "Catalan (Native)", "English (Fluent)"],
+    portfolioItems: [
+      { title: "Invoicing Engine API", category: "Backend API" },
+      { title: "Real-time SaaS Dashboard", category: "TypeScript / Node" }
+    ]
   },
   {
     id: "f4",
     name: "Jürgen Weber",
-    role: "Backend & Cloud Engineer",
+    role: "DevOps & Backend Engineer",
     country: "Germany",
     countryCode: "DE",
+    city: "Berlin",
     rating: 4.85,
     jobsCompleted: 18,
     hourlyRate: 85,
@@ -112,130 +192,173 @@ export const freelancers: Freelancer[] = [
     founder: false,
     skills: ["Node.js", "PostgreSQL", "Docker", "AWS", "Kubernetes"],
     avatar: "JW",
-    bio: "Cloud specialist focused on resilient microservices and GDPR-compliant server architecture.",
+    bio: "DevOps and backend engineer. I handle AWS, Docker, Kubernetes, and ensure your infrastructure is secure and scalable.",
     availability: "Available part-time",
-    vatNumber: "DE999888777"
+    vatNumber: "DE999888777",
+    languages: ["German (Native)", "English (Fluent)"]
   },
   {
     id: "f5",
     name: "Claire Dubois",
-    role: "AI & ML Integration Specialist",
+    role: "Machine Learning & Python Developer",
     country: "France",
     countryCode: "FR",
+    city: "Paris",
     rating: 4.9,
     jobsCompleted: 22,
     hourlyRate: 90,
     verified: true,
     founder: false,
-    skills: ["Python", "OpenAI", "LangChain", "FastAPI", "React"],
+    skills: ["Python", "PyTorch", "LangChain", "FastAPI", "Mistral AI"],
     avatar: "CD",
-    bio: "AI engineer helping European enterprises integrate open-weight LLMs into existing workflows.",
+    bio: "Machine learning engineer focused on Python, PyTorch, and NLP. I can help integrate and fine-tune LLMs for your app.",
     availability: "Available now",
-    vatNumber: "FR12345678901"
+    vatNumber: "FR12345678901",
+    languages: ["French (Native)", "English (Fluent)"]
+  },
+  {
+    id: "f6",
+    name: "Inês Pereira",
+    role: "Copywriter & Content Strategist",
+    country: "Portugal",
+    countryCode: "PT",
+    city: "Porto",
+    rating: 4.98,
+    jobsCompleted: 31,
+    hourlyRate: 45,
+    verified: true,
+    founder: true,
+    founderBadgeNumber: 89,
+    skills: ["Copywriting", "SEO", "Localization", "Brand Strategy", "Content Marketing"],
+    avatar: "IP",
+    bio: "Copywriter and content strategist. I write SEO-friendly articles, landing pages, and marketing copy for tech companies.",
+    availability: "Available now",
+    vatNumber: "PT509988776",
+    languages: ["Portuguese (Native)", "English (Fluent)", "Spanish (Fluent)"]
   }
 ];
 
-export const projects: Project[] = [
+export const initialProjects: Project[] = [
   {
     id: "p1",
-    title: "E-commerce Redesign MVP",
-    client: "TechNova Solutions",
-    clientCountry: "Portugal",
-    budget: "€4,500",
-    budgetValue: 4500,
-    status: "Open",
+    title: "Iberian E-Commerce Storefront Redesign",
+    category: "Software Development",
+    client: "Iberia Retail Group",
+    clientCountry: "Spain",
+    clientCity: "Madrid",
+    clientVat: "ESB98765432",
+    budget: "€1,000",
+    budgetValue: 1000,
+    status: "In Progress",
     postedDate: "2 days ago",
-    description: "Looking for a Next.js expert to rebuild our storefront. Must have experience with Stripe integration, SSR, and i18n.",
-    skillsRequired: ["Next.js", "React", "TypeScript", "Stripe"],
-    matchScore: 94,
-    proposalsCount: 4
+    description: "Looking for an experienced Next.js/React developer to build our e-commerce frontend. You will need to integrate Stripe checkout and handle multi-currency logic.",
+    skillsRequired: ["Next.js", "React", "TypeScript", "Tailwind CSS", "Stripe"],
+    matchScore: 96,
+    proposalsCount: 5,
+    duration: "2-4 weeks",
+    remotePreference: "Remote (EU Timezone)",
+    experienceLevel: "Senior"
   },
   {
     id: "p2",
-    title: "Fintech App UI/UX Dashboard",
+    title: "Fintech Mobile Dashboard UI/UX Architecture",
+    category: "Design",
     client: "EuroFinance GmbH",
     clientCountry: "Germany",
-    budget: "€6,000",
-    budgetValue: 6000,
+    clientCity: "Frankfurt",
+    clientVat: "DE812345678",
+    budget: "€3,500",
+    budgetValue: 3500,
     status: "Open",
-    postedDate: "1 week ago",
-    description: "Design a new dashboard for our wealth management application. Clean, institutional look required with full accessibility.",
+    postedDate: "5 days ago",
+    description: "Need a UI/UX designer to create a dashboard for a fintech app. We need clean, modern wireframes and a clickable Figma prototype.",
     skillsRequired: ["Figma", "Design Systems", "UI Design", "Fintech"],
-    matchScore: 88,
-    proposalsCount: 7
+    matchScore: 91,
+    proposalsCount: 8,
+    duration: "1-2 months",
+    remotePreference: "Remote",
+    experienceLevel: "Expert"
   },
   {
     id: "p3",
-    title: "Cross-Border VAT Analytics Engine",
+    title: "Automated Cross-Border VAT Reporting Engine",
+    category: "Software Development",
     client: "Iberia Retail Group",
     clientCountry: "Spain",
-    budget: "€8,200",
-    budgetValue: 8200,
+    clientCity: "Madrid",
+    clientVat: "ESB98765432",
+    budget: "€4,200",
+    budgetValue: 4200,
     status: "Open",
-    postedDate: "3 days ago",
-    description: "Build an automated tax reporting engine to calculate reverse-charge VAT across 27 EU member states.",
-    skillsRequired: ["Node.js", "PostgreSQL", "TypeScript", "VAT API"],
-    matchScore: 91,
-    proposalsCount: 3
+    postedDate: "1 week ago",
+    description: "Looking for a backend dev (Node/TypeScript) to build a small microservice that connects to the EU VAT API for validation and reporting.",
+    skillsRequired: ["Node.js", "PostgreSQL", "TypeScript", "VAT APIs"],
+    matchScore: 89,
+    proposalsCount: 4,
+    duration: "1 month",
+    remotePreference: "Remote (Spain / Portugal preferred)",
+    experienceLevel: "Intermediate"
   }
 ];
 
-export const mockMessages = [
+export const initialContract: ContractItem = {
+  id: "c1",
+  projectId: "p1",
+  projectName: "Iberian E-Commerce Storefront Redesign",
+  clientName: "Iberia Retail Group",
+  clientCountry: "Spain",
+  clientVat: "ESB98765432",
+  freelancerId: "f1",
+  freelancerName: "Tiago Mendes",
+  freelancerCountry: "Portugal",
+  freelancerVat: "PT509123456",
+  amount: 1000,
+  clientFee: 150, // 15%
+  freelancerFee: 0, // 0% Founder Promo
+  clientTotalPaid: 1150,
+  freelancerNetPayout: 1000,
+  status: "Active",
+  escrowStatus: "Funded",
+  deadline: "2027-11-30",
+  jurisdiction: "EU Cross-Border Commercial Agreement (ES / PT)",
+  contractLanguage: "English (Certified Law Version)",
+  signedByClientAt: "2026-08-20 14:30",
+  signedByFreelancerAt: "2026-08-20 15:15"
+};
+
+export const initialMessages: MessageItem[] = [
   {
     id: "m1",
-    sender: "TechNova Solutions",
-    role: "client",
-    text: "Hi Marco! We saw your profile on EULANCE. Your React and Next.js experience is a 94% match for our E-commerce MVP project.",
-    timestamp: "10:30 AM"
+    conversationId: "conv1",
+    senderId: "c_iberia",
+    senderName: "Iberia Retail Group",
+    senderRole: "client",
+    text: "Hi Tiago, I saw your profile and it looks like a great fit. We're looking for someone to help us build a Next.js storefront.",
+    timestamp: "10:15 AM"
   },
   {
     id: "m2",
-    sender: "Marco Rossi",
-    role: "freelancer",
-    text: "Hello! Thank you for reaching out. I've reviewed the requirements for the Next.js storefront and Stripe integration. I'm ready to get started!",
-    timestamp: "10:35 AM"
+    conversationId: "conv1",
+    senderId: "f1",
+    senderName: "Tiago Mendes",
+    senderRole: "freelancer",
+    text: "Hi! Thanks for reaching out. I've read the project details. The €1,000 budget and 2-week timeline work for me. When do you want to start?",
+    timestamp: "10:22 AM"
   },
   {
     id: "m3",
-    sender: "TechNova Solutions",
-    role: "client",
-    text: "Great! Let's initiate the contract on EULANCE. The automated EU agreement looks solid and secures our milestone in Escrow.",
-    timestamp: "10:40 AM"
+    conversationId: "conv1",
+    senderId: "c_iberia",
+    senderName: "Iberia Retail Group",
+    senderRole: "client",
+    text: "Great! I'm sending the offer now. Let's get started as soon as the escrow is funded.",
+    timestamp: "10:30 AM",
+    offerData: {
+      projectId: "p1",
+      projectTitle: "Iberian E-Commerce Storefront Redesign",
+      amount: 1000,
+      deadline: "2027-11-30",
+      status: "Accepted"
+    }
   }
 ];
-
-export const contracts: Contract[] = [
-  {
-    id: "c1",
-    projectName: "E-commerce Redesign MVP",
-    clientName: "TechNova Solutions",
-    clientVat: "PT509876543",
-    freelancerName: "Marco Rossi",
-    freelancerVat: "IT09876543210",
-    amount: 4500,
-    clientFee: 675, // 15%
-    freelancerFee: 225, // 5%
-    status: "Signed",
-    escrowStatus: "Funded",
-    deadline: "2027-11-15",
-    jurisdiction: "Italy / Portugal EU Cross-Border Agreement"
-  }
-];
-
-export const dashboardMetrics = {
-  freelancer: {
-    totalEarnings: "€14,250",
-    activeContracts: 1,
-    pendingProposals: 3,
-    trustScore: 98,
-    completionRate: "100%",
-    founderBadge: true
-  },
-  client: {
-    totalSpent: "€32,400",
-    activeProjects: 2,
-    hiredFreelancers: 5,
-    avgTimeToHire: "3 days",
-    avgRating: 4.95
-  }
-};

@@ -1,8 +1,10 @@
 "use client";
 
-import { useState } from "react";
-import { mockMessages } from "@/lib/data/mock";
-import { Send, X, ShieldCheck, Lock } from "lucide-react";
+import { useState, useRef, useEffect } from "react";
+import Link from "next/link";
+import { initialMessages, MessageItem } from "@/lib/data/mock";
+import { Send, X, ShieldCheck, Lock, FileText } from "lucide-react";
+import { useDemoState } from "@/lib/context/DemoStateContext";
 import { motion } from "framer-motion";
 
 interface DirectMessagingModalProps {
@@ -22,8 +24,19 @@ export default function DirectMessagingModal({
   recipientCountry,
   avatar
 }: DirectMessagingModalProps) {
-  const [messages, setMessages] = useState(mockMessages);
+  const { messages, sendMessage, activeRole } = useDemoState();
   const [inputText, setInputText] = useState("");
+  const messagesEndRef = useRef<HTMLDivElement>(null);
+
+  const scrollToBottom = () => {
+    messagesEndRef.current?.scrollIntoView({ behavior: "smooth" });
+  };
+
+  useEffect(() => {
+    if (isOpen) {
+      scrollToBottom();
+    }
+  }, [messages, isOpen]);
 
   if (!isOpen) return null;
 
@@ -31,38 +44,20 @@ export default function DirectMessagingModal({
     e.preventDefault();
     if (!inputText.trim()) return;
 
-    const newMessage = {
-      id: `m_${Date.now()}`,
-      sender: "You",
-      role: "client",
-      text: inputText,
-      timestamp: new Date().toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' })
-    };
-
-    setMessages(prev => [...prev, newMessage]);
+    sendMessage(inputText);
     setInputText("");
-
-    // Simulate auto response after 1 second
-    setTimeout(() => {
-      setMessages(prev => [
-        ...prev,
-        {
-          id: `m_${Date.now() + 1}`,
-          sender: recipientName,
-          role: "freelancer",
-          text: `Thanks for the details! I'm happy to review the scope and proceed under EULANCE Escrow protection.`,
-          timestamp: new Date().toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' })
-        }
-      ]);
-    }, 1000);
   };
 
   return (
-    <div className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-black/50 backdrop-blur-xs">
+    <div 
+      className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-black/50 backdrop-blur-xs"
+      onClick={onClose}
+    >
       <motion.div
         initial={{ opacity: 0, scale: 0.95 }}
         animate={{ opacity: 1, scale: 1 }}
         exit={{ opacity: 0, scale: 0.95 }}
+        onClick={(e) => e.stopPropagation()}
         className="bg-white w-full max-w-2xl rounded-2xl shadow-2xl overflow-hidden flex flex-col h-[600px] border border-[var(--color-eulance-border)]"
       >
         {/* Header */}
@@ -74,14 +69,24 @@ export default function DirectMessagingModal({
             <div>
               <div className="flex items-center gap-2">
                 <h3 className="font-bold text-lg">{recipientName}</h3>
-                <ShieldCheck size={16} className="text-[var(--color-eulance-gold)]" />
+                <ShieldCheck size={16} className="text-[var(--color-eulance-yellow)]" />
               </div>
               <p className="text-xs text-white/80">{recipientRole} • {recipientCountry}</p>
             </div>
           </div>
-          <button onClick={onClose} className="p-2 hover:bg-white/10 rounded-full text-white/80 hover:text-white transition-colors">
-            <X size={20} />
-          </button>
+
+          <div className="flex items-center gap-2">
+            <Link
+              href="/demo/contracts/c1"
+              onClick={onClose}
+              className="hidden sm:inline-flex items-center gap-1 text-[11px] px-2.5 py-1 bg-white/10 hover:bg-white/20 rounded-lg text-white font-semibold transition-colors"
+            >
+              <FileText size={13} /> Contract
+            </Link>
+            <button onClick={onClose} className="p-2 hover:bg-white/10 rounded-full text-white/80 hover:text-white transition-colors">
+              <X size={20} />
+            </button>
+          </div>
         </div>
 
         {/* Anti-leakage Notice */}
@@ -93,10 +98,10 @@ export default function DirectMessagingModal({
         {/* Message Area */}
         <div className="flex-1 p-4 overflow-y-auto space-y-4 bg-[var(--color-eulance-soft)]/40">
           {messages.map((msg) => {
-            const isMe = msg.sender === "You" || msg.sender === "TechNova Solutions";
+            const isMe = msg.senderRole === activeRole;
             return (
               <div key={msg.id} className={`flex flex-col ${isMe ? "items-end" : "items-start"}`}>
-                <span className="text-[10px] text-gray-500 mb-1 px-1">{msg.sender} • {msg.timestamp}</span>
+                <span className="text-[10px] text-gray-500 mb-1 px-1">{msg.senderName} • {msg.timestamp}</span>
                 <div
                   className={`max-w-md p-3.5 rounded-2xl text-sm leading-relaxed shadow-xs ${
                     isMe
@@ -109,6 +114,7 @@ export default function DirectMessagingModal({
               </div>
             );
           })}
+          <div ref={messagesEndRef} />
         </div>
 
         {/* Input Bar */}
@@ -131,3 +137,4 @@ export default function DirectMessagingModal({
     </div>
   );
 }
+

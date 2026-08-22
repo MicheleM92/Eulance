@@ -1,14 +1,13 @@
 @import "tailwindcss";
 
 @theme {
-  --color-eulance-navy: #0A192F;
-  --color-eulance-deepNavy: #061121;
-  --color-eulance-blue: #2563EB;
-  --color-eulance-lightBlue: #3B82F6;
-  --color-eulance-gold: #F59E0B;
-  --color-eulance-brightGold: #FBBF24;
-  --color-eulance-darkGold: #D97706;
-  --color-eulance-mint: #D1FAE5;
+  --color-eulance-navy: #173F73;
+  --color-eulance-deepNavy: #0F2A4D;
+  --color-eulance-blue: #214777;
+  --color-eulance-lightBlue: #2563EB;
+  --color-eulance-yellow: #F5C814;
+  --color-eulance-gold: #F5C814;
+  --color-eulance-mint: #DCEDEA;
   --color-eulance-emerald: #059669;
   --color-eulance-soft: #F8FAFC;
   --color-eulance-border: #E2E8F0;
@@ -30,24 +29,17 @@ body {
 
 /* Custom Utilities */
 .glass-panel {
-  background: rgba(255, 255, 255, 0.85);
+  background: rgba(255, 255, 255, 0.9);
   backdrop-filter: blur(12px);
   -webkit-backdrop-filter: blur(12px);
   border: 1px solid rgba(226, 232, 240, 0.8);
 }
 
 .glass-panel-dark {
-  background: rgba(10, 25, 47, 0.85);
+  background: rgba(23, 63, 115, 0.95);
   backdrop-filter: blur(12px);
   -webkit-backdrop-filter: blur(12px);
-  border: 1px solid rgba(255, 255, 255, 0.1);
-}
-
-.gradient-text {
-  background: linear-[#2563EB, #059669];
-  background-clip: text;
-  -webkit-background-clip: text;
-  -webkit-text-fill-color: transparent;
+  border: 1px solid rgba(255, 255, 255, 0.15);
 }
 
 /* Smooth custom scrollbars */
@@ -64,4 +56,32 @@ body {
 }
 ::-webkit-scrollbar-thumb:hover {
   background: #94A3B8;
+}
+
+/* Print Styles for PDF Generation */
+@media print {
+  body {
+    background-color: white !important;
+    color: black !important;
+  }
+  
+  /* Hide UI elements that shouldn't be printed */
+  .no-print, nav, header, button:not(.print-only) {
+    display: none !important;
+  }
+  
+  /* Ensure the printed container takes full width and drops shadows */
+  .print-container {
+    width: 100% !important;
+    max-width: none !important;
+    margin: 0 !important;
+    padding: 0 !important;
+    box-shadow: none !important;
+    border: none !important;
+  }
+  
+  /* Prevent page breaks inside important sections */
+  .break-inside-avoid {
+    break-inside: avoid;
+  }
 }

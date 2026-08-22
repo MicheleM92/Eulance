@@ -26,8 +26,11 @@ export default function PostProjectModal({ isOpen, onClose, onPost }: PostProjec
     const newProj: Project = {
       id: `p_${Date.now()}`,
       title: title,
+      category: "Software Development",
       client: "TechNova Solutions",
       clientCountry: "Portugal",
+      clientCity: "Lisbon",
+      clientVat: "PT509876543",
       budget: `€${Number(budget).toLocaleString()}`,
       budgetValue: Number(budget),
       status: "Open",
@@ -35,7 +38,10 @@ export default function PostProjectModal({ isOpen, onClose, onPost }: PostProjec
       description: description || "Looking for top EU freelancer to execute technical scope.",
       skillsRequired: skills.split(",").map(s => s.trim()),
       matchScore: 96,
-      proposalsCount: 0
+      proposalsCount: 0,
+      duration: "2-4 weeks",
+      remotePreference: "Remote (EU Timezone)",
+      experienceLevel: "Senior",
     };
 
     onPost(newProj);
