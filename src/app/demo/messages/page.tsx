@@ -9,13 +9,7 @@ import {
   Send,
   Paperclip,
   ShieldCheck,
-  FileText,
-  Building2,
-  UserCheck,
   CheckCircle2,
-  Coins,
-  Clock,
-  ArrowRight,
   Sparkles,
 } from "lucide-react";
 
@@ -48,54 +42,54 @@ export default function MessagesPage() {
   const isClient = activeRole === "client";
 
   return (
-    <div className="min-h-screen bg-[var(--color-eulance-soft)] flex flex-col">
+    <div className="min-h-screen bg-[#000000] text-white flex flex-col font-mono">
       <DemoHeader />
 
       <main className="flex-1 py-6">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 h-[calc(100vh-140px)] flex flex-col">
           
-          <div className="bg-white rounded-3xl shadow-sm border border-gray-200 flex-1 flex overflow-hidden">
+          <div className="bg-[#050505] border border-[#222222] flex-1 flex overflow-hidden">
             
             {/* LEFT COLUMN: Conversations List */}
-            <div className="w-80 border-r border-gray-200 flex flex-col bg-gray-50/50 shrink-0">
-              <div className="p-4 border-b border-gray-200 bg-white">
-                <h2 className="font-extrabold text-base text-[var(--color-eulance-navy)]">Commercial Inbox</h2>
-                <p className="text-[10px] text-gray-500">Verified encrypted chat & offer stream</p>
+            <div className="w-80 border-r border-[#222222] flex flex-col shrink-0">
+              <div className="p-4 border-b border-[#222222] bg-[#000000]">
+                <h2 className="font-extrabold text-xs text-[#00ff66] uppercase tracking-widest">COMM_STREAM</h2>
+                <p className="text-[10px] text-[#888888] mt-1">ENCRYPTED_P2P_SOCKET</p>
               </div>
 
-              <div className="flex-1 overflow-y-auto divide-y divide-gray-100">
-                <div className="p-4 bg-white border-l-4 border-[var(--color-eulance-navy)] cursor-pointer">
+              <div className="flex-1 overflow-y-auto divide-y divide-[#222222]">
+                <div className="p-4 bg-[#111111] border-l-2 border-[#00ff66] cursor-pointer">
                   <div className="flex items-center justify-between mb-1">
-                    <span className="font-extrabold text-xs text-[var(--color-eulance-navy)]">
-                      {isClient ? "Tiago Mendes (Portugal)" : "Iberia Retail Group (Spain)"}
+                    <span className="font-extrabold text-xs text-white uppercase">
+                      {isClient ? "Tiago Mendes [PT]" : "Iberia Retail Group [ES]"}
                     </span>
-                    <span className="text-[10px] text-gray-400">10:30 AM</span>
+                    <span className="text-[10px] text-[#888888]">10:30_Z</span>
                   </div>
-                  <p className="text-[11px] text-gray-600 truncate font-medium">
-                    Iberian E-Commerce Storefront Redesign
+                  <p className="text-[10px] text-[#aaaaaa] truncate">
+                    HASH: IBERIAN_ECOMMERCE_V1
                   </p>
-                  <span className="inline-block mt-2 px-2 py-0.5 rounded bg-emerald-100 text-emerald-800 text-[10px] font-bold">
-                    Offer Accepted • Escrow Funded
+                  <span className="inline-block mt-2 px-1.5 py-0.5 border border-[#00ff66] text-[#00ff66] text-[9px] uppercase font-bold">
+                    ESCROW_LOCKED
                   </span>
                 </div>
               </div>
             </div>
 
             {/* CENTER COLUMN: Chat View & Actions */}
-            <div className="flex-1 flex flex-col bg-white min-w-0">
+            <div className="flex-1 flex flex-col bg-[#050505] min-w-0">
               
               {/* Chat Header */}
-              <div className="p-4 border-b border-gray-200 flex items-center justify-between bg-white z-10">
+              <div className="p-4 border-b border-[#222222] flex items-center justify-between bg-[#000000] z-10">
                 <div className="flex items-center gap-3">
-                  <div className="w-10 h-10 rounded-xl bg-[var(--color-eulance-navy)] text-[var(--color-eulance-yellow)] font-bold text-sm flex items-center justify-center">
+                  <div className="w-8 h-8 border border-[#222222] bg-[#111111] text-[#00ff66] font-bold text-xs flex items-center justify-center">
                     {isClient ? "TM" : "IR"}
                   </div>
                   <div>
-                    <h3 className="font-extrabold text-sm text-[var(--color-eulance-navy)]">
-                      {isClient ? "Tiago Mendes" : "Iberia Retail Group"}
+                    <h3 className="font-extrabold text-xs text-white uppercase">
+                      {isClient ? "NODE: TMENDES" : "NODE: IBERIA"}
                     </h3>
-                    <p className="text-[11px] text-gray-500 font-medium">
-                      Project: Iberian E-Commerce Storefront Redesign (€1,000)
+                    <p className="text-[10px] text-[#888888]">
+                      CONTRACT_ID: 0x8f4...e2a
                     </p>
                   </div>
                 </div>
@@ -104,24 +98,24 @@ export default function MessagesPage() {
                   {isClient && (
                     <button
                       onClick={() => setShowOfferModal(true)}
-                      className="px-3.5 py-2 bg-[var(--color-eulance-navy)] hover:bg-[var(--color-eulance-blue)] text-white font-extrabold rounded-xl text-xs transition-colors flex items-center gap-1.5 shadow-xs"
+                      className="px-3 py-1.5 border border-[#00e5ff] text-[#00e5ff] hover:bg-[#111111] font-bold text-[10px] uppercase transition-colors flex items-center gap-1.5"
                     >
-                      <Sparkles size={14} className="text-[var(--color-eulance-yellow)]" /> Send Formal Offer
+                      <Sparkles size={12} /> DEPLOY_OFFER
                     </button>
                   )}
                   {activeContract && (
                     <Link
                       href={`/demo/workroom/${activeContract.id}`}
-                      className="px-3.5 py-2 bg-emerald-600 hover:bg-emerald-700 text-white font-extrabold rounded-xl text-xs transition-colors flex items-center gap-1.5 shadow-xs"
+                      className="px-3 py-1.5 bg-[#00ff66] text-[#000000] hover:bg-[#00cc55] font-bold text-[10px] uppercase transition-colors flex items-center gap-1.5"
                     >
-                      <CheckCircle2 size={14} /> Open Workroom
+                      <CheckCircle2 size={12} /> INIT_WORKROOM
                     </Link>
                   )}
                 </div>
               </div>
 
               {/* Chat Messages Body */}
-              <div className="flex-1 p-6 overflow-y-auto space-y-4 bg-gray-50/40">
+              <div className="flex-1 p-6 overflow-y-auto space-y-6 bg-[#050505]">
                 {messages.map((m) => {
                   const isMe =
                     (isClient && m.senderRole === "client") || (!isClient && m.senderRole === "freelancer");
@@ -132,32 +126,37 @@ export default function MessagesPage() {
                       className={`flex flex-col ${isMe ? "items-end" : "items-start"}`}
                     >
                       <div className="flex items-center gap-2 mb-1">
-                        <span className="text-[10px] font-bold text-gray-500">{m.senderName}</span>
-                        <span className="text-[9px] text-gray-400">{m.timestamp}</span>
+                        <span className={`text-[9px] font-bold uppercase ${isMe ? "text-[#00ff66]" : "text-[#888888]"}`}>
+                          {m.senderName}
+                        </span>
+                        <span className="text-[9px] text-[#444444]">{m.timestamp}</span>
                       </div>
 
                       <div
-                        className={`max-w-md p-4 rounded-2xl text-xs leading-relaxed ${
+                        className={`max-w-md p-3 text-xs leading-relaxed border ${
                           isMe
-                            ? "bg-[var(--color-eulance-navy)] text-white rounded-br-none shadow-xs"
-                            : "bg-white text-gray-800 border border-gray-200 rounded-bl-none shadow-xs"
+                            ? "bg-[#111111] border-[#333333] text-white"
+                            : "bg-[#000000] border-[#222222] text-[#dddddd]"
                         }`}
                       >
                         {m.text}
 
                         {/* If message contains offer data */}
                         {m.offerData && (
-                          <div className="mt-3 p-3 rounded-xl bg-white/10 border border-white/20 text-white space-y-2">
-                            <div className="flex justify-between font-bold">
-                              <span>Formal Contract Offer</span>
-                              <span className="text-[var(--color-eulance-yellow)]">€{m.offerData.amount}</span>
+                          <div className="mt-3 p-3 bg-[#0a0a0a] border border-[#00e5ff] text-white space-y-2 font-mono text-[10px]">
+                            <div className="text-[#00e5ff] font-bold mb-2">{"{"}</div>
+                            <div className="pl-4 space-y-1">
+                              <div><span className="text-[#888888]">"type":</span> "smart_contract_offer",</div>
+                              <div><span className="text-[#888888]">"amount":</span> "€{m.offerData.amount}",</div>
+                              <div><span className="text-[#888888]">"project":</span> "{m.offerData.projectTitle}"</div>
                             </div>
-                            <p className="text-[10px] text-white/80">Project: {m.offerData.projectTitle}</p>
+                            <div className="text-[#00e5ff] font-bold mt-2">{"}"}</div>
+                            
                             <Link
                               href="/demo/contracts/c1"
-                              className="block w-full py-1.5 bg-[var(--color-eulance-yellow)] text-[var(--color-eulance-navy)] text-center rounded-lg font-extrabold text-[11px] hover:bg-yellow-400 transition-colors"
+                              className="block w-full py-1.5 mt-3 border border-[#00e5ff] text-[#00e5ff] text-center font-bold text-[10px] uppercase hover:bg-[#111111] transition-colors"
                             >
-                              Review & Sign Contract
+                              SIGN_PAYLOAD
                             </Link>
                           </div>
                         )}
@@ -168,59 +167,62 @@ export default function MessagesPage() {
               </div>
 
               {/* Chat Input Form */}
-              <form onSubmit={handleSend} className="p-4 bg-white border-t border-gray-200 flex items-center gap-3">
+              <form onSubmit={handleSend} className="p-4 bg-[#000000] border-t border-[#222222] flex items-center gap-3">
+                <div className="text-[#00ff66] font-bold">&gt;</div>
                 <input
                   type="text"
-                  placeholder="Type message, clarify milestones, or discuss deliverable specs..."
+                  placeholder="Transmit payload..."
                   value={inputText}
                   onChange={(e) => setInputText(e.target.value)}
-                  className="flex-1 p-3 border border-gray-300 rounded-xl text-xs font-medium focus:ring-2 focus:ring-[var(--color-eulance-navy)] outline-none"
+                  className="flex-1 bg-transparent border-none text-[#ffffff] text-xs font-mono focus:ring-0 outline-none placeholder-[#444444]"
                 />
                 <button
                   type="button"
-                  onClick={() => sendMessage("Attached deliverables preview file: Storefront_Prototype_v1.fig")}
-                  className="p-3 text-gray-500 hover:text-[var(--color-eulance-navy)] hover:bg-gray-100 rounded-xl transition-colors"
+                  onClick={() => sendMessage("ATTACH_PAYLOAD: Storefront_Prototype_v1.fig")}
+                  className="p-2 text-[#888888] hover:text-[#ffffff] transition-colors"
                   title="Simulate Attachment"
                 >
-                  <Paperclip size={18} />
+                  <Paperclip size={14} />
                 </button>
                 <button
                   type="submit"
-                  className="px-5 py-3 bg-[var(--color-eulance-navy)] hover:bg-[var(--color-eulance-blue)] text-white rounded-xl font-bold text-xs transition-colors shadow-xs flex items-center gap-1.5"
+                  className="px-4 py-2 border border-[#00ff66] text-[#00ff66] hover:bg-[#111111] font-bold text-[10px] uppercase transition-colors flex items-center gap-1.5"
                 >
-                  Send <Send size={14} />
+                  SEND <Send size={12} />
                 </button>
               </form>
 
             </div>
 
             {/* RIGHT COLUMN: Context Panel */}
-            <div className="w-80 border-l border-gray-200 p-6 flex flex-col bg-gray-50/70 overflow-y-auto space-y-6 shrink-0 hidden lg:block">
+            <div className="w-80 border-l border-[#222222] p-6 flex flex-col bg-[#000000] overflow-y-auto space-y-6 shrink-0 hidden lg:block">
               
               <div>
-                <h4 className="text-xs font-bold text-gray-400 uppercase tracking-wider mb-3">Commercial Context</h4>
-                <div className="bg-white p-4 rounded-2xl border border-gray-200 space-y-2 text-xs">
-                  <span className="font-extrabold text-[var(--color-eulance-navy)] block">
-                    {activeContract?.projectName || "Pending Project Assignment"}
+                <h4 className="text-[10px] font-bold text-[#888888] uppercase tracking-widest mb-3 border-b border-[#222222] pb-1">
+                  SYS_STATE
+                </h4>
+                <div className="bg-[#050505] p-4 border border-[#222222] space-y-3 text-xs">
+                  <span className="font-bold text-white block uppercase text-[10px]">
+                    {activeContract?.projectName || "AWAITING_ASSIGNMENT"}
                   </span>
-                  <div className="flex justify-between text-gray-600">
-                    <span>Agreed Amount:</span>
-                    <span className="font-mono font-bold text-gray-900">€{activeContract?.amount?.toLocaleString() || "0"}</span>
+                  <div className="flex justify-between text-[#888888] text-[10px]">
+                    <span>BASE_VAL:</span>
+                    <span className="font-bold text-white">€{activeContract?.amount?.toLocaleString() || "0"}</span>
                   </div>
-                  <div className="flex justify-between text-gray-600">
-                    <span>Client Deposit (+15%):</span>
-                    <span className="font-mono font-bold text-blue-700">€{activeContract?.clientTotalPaid?.toLocaleString() || "0"}</span>
+                  <div className="flex justify-between text-[#888888] text-[10px]">
+                    <span>IN_ESCROW (+15%):</span>
+                    <span className="font-bold text-[#00e5ff]">€{activeContract?.clientTotalPaid?.toLocaleString() || "0"}</span>
                   </div>
-                  <div className="flex justify-between text-gray-600 items-center">
-                    <span>Freelancer Payout:</span>
-                    <span className="font-mono font-bold text-emerald-700 flex items-center gap-1">
+                  <div className="flex justify-between text-[#888888] items-center text-[10px]">
+                    <span>NET_YIELD:</span>
+                    <span className="font-bold text-[#00ff66] flex items-center gap-1">
                       €{activeContract?.freelancerNetPayout?.toLocaleString() || "0"} 
                       {activeContract?.freelancerFee === 0 ? (
-                        <span className="bg-emerald-100 text-emerald-800 px-1.5 py-0.5 rounded text-[9px] ml-1">
-                          <span className="line-through text-emerald-600/60 mr-1">5%</span>0% Promo
+                        <span className="border border-[#00ff66] text-[#00ff66] px-1 py-0.5 text-[8px] ml-1 uppercase">
+                          0%_PROMO
                         </span>
                       ) : (
-                        <span className="text-[10px] font-normal text-gray-400">(5% fee)</span>
+                        <span className="text-[9px] text-[#444444]">(5%_FEE)</span>
                       )}
                     </span>
                   </div>
@@ -229,24 +231,26 @@ export default function MessagesPage() {
 
               {activeContract && (
                 <div>
-                  <h4 className="text-xs font-bold text-gray-400 uppercase tracking-wider mb-3">Escrow Security State</h4>
-                  <div className="bg-emerald-50 p-4 rounded-2xl border border-emerald-200 space-y-2 text-xs text-emerald-950">
-                    <div className="flex items-center gap-2 font-extrabold text-emerald-900">
-                      <ShieldCheck size={16} className="text-emerald-600" /> Funds Secured in Escrow
+                  <h4 className="text-[10px] font-bold text-[#888888] uppercase tracking-widest mb-3 border-b border-[#222222] pb-1">
+                    ESCROW_MODULE
+                  </h4>
+                  <div className="bg-[#050505] p-4 border border-[#00ff66] space-y-2 text-[#00ff66]">
+                    <div className="flex items-center gap-2 font-bold text-[10px] uppercase">
+                      <ShieldCheck size={14} /> FUNDS_LOCKED
                     </div>
-                    <p className="text-[11px] text-emerald-800 leading-snug">
-                      Client deposited €1,150 into licensed EU escrow institution. Funds will release automatically upon delivery approval.
+                    <p className="text-[9px] text-[#00aa44] leading-snug">
+                      Hash validation complete. €1,150 secured in EU node. Automatic release upon delivery approval.
                     </p>
                   </div>
                 </div>
               )}
 
-              <div className="pt-4 border-t border-gray-200">
+              <div className="pt-4 border-t border-[#222222]">
                 <Link
                   href="/demo/contracts/c1"
-                  className="w-full py-2.5 bg-white border border-gray-300 text-[var(--color-eulance-navy)] rounded-xl font-bold text-xs hover:bg-gray-100 transition-colors block text-center shadow-2xs"
+                  className="w-full py-2 bg-[#111111] border border-[#333333] text-white font-bold text-[10px] uppercase hover:bg-[#222222] transition-colors block text-center"
                 >
-                  View Full Legal Contract
+                  DUMP_CONTRACT_DATA
                 </Link>
               </div>
 
@@ -256,36 +260,36 @@ export default function MessagesPage() {
 
           {/* Modal for Creating Offer */}
           {showOfferModal && (
-            <div className="fixed inset-0 bg-black/50 backdrop-blur-xs flex items-center justify-center p-4 z-50">
-              <div className="bg-white rounded-3xl p-8 max-w-md w-full space-y-6 shadow-2xl">
-                <div className="flex items-center justify-between pb-4 border-b border-gray-100">
-                  <h3 className="text-xl font-black text-[var(--color-eulance-navy)]">Send Commercial Offer</h3>
-                  <button onClick={() => setShowOfferModal(false)} className="text-gray-400 hover:text-gray-600 font-bold">✕</button>
+            <div className="fixed inset-0 bg-black/80 backdrop-blur-sm flex items-center justify-center p-4 z-50">
+              <div className="bg-[#050505] border border-[#222222] p-6 max-w-md w-full space-y-6">
+                <div className="flex items-center justify-between pb-3 border-b border-[#222222]">
+                  <h3 className="text-sm font-bold text-white uppercase tracking-widest">INITIATE_OFFER_PAYLOAD</h3>
+                  <button onClick={() => setShowOfferModal(false)} className="text-[#888888] hover:text-white font-bold">✕</button>
                 </div>
 
-                <form onSubmit={handleCreateOffer} className="space-y-4 text-xs font-semibold">
+                <form onSubmit={handleCreateOffer} className="space-y-4 text-xs font-mono">
                   <div>
-                    <label className="block text-gray-700 mb-1">Offer Contract Value (€)</label>
+                    <label className="block text-[#888888] mb-1 text-[10px] uppercase">Transaction Value (€)</label>
                     <input
                       type="number"
                       required
                       value={offerAmount}
                       onChange={(e) => setOfferAmount(Number(e.target.value))}
-                      className="w-full p-3 border border-gray-300 rounded-xl font-mono text-sm"
+                      className="w-full p-2 bg-[#000000] border border-[#333333] text-white focus:border-[#00e5ff] outline-none"
                     />
-                    <span className="text-[10px] text-gray-500 mt-1 block">
-                      Client pays €{(offerAmount * 1.15).toLocaleString()} (includes 15% EULANCE fee)
+                    <span className="text-[9px] text-[#444444] mt-1 block">
+                      NODE_DEBIT: €{(offerAmount * 1.15).toLocaleString()} (INC 15% PROTOCOL FEE)
                     </span>
                   </div>
 
                   <div>
-                    <label className="block text-gray-700 mb-1">Delivery Target Date</label>
+                    <label className="block text-[#888888] mb-1 text-[10px] uppercase">TTL (Delivery Date)</label>
                     <input
                       type="date"
                       required
                       value={offerDeadline}
                       onChange={(e) => setOfferDeadline(e.target.value)}
-                      className="w-full p-3 border border-gray-300 rounded-xl"
+                      className="w-full p-2 bg-[#000000] border border-[#333333] text-white focus:border-[#00e5ff] outline-none [color-scheme:dark]"
                     />
                   </div>
 
@@ -293,15 +297,15 @@ export default function MessagesPage() {
                     <button
                       type="button"
                       onClick={() => setShowOfferModal(false)}
-                      className="flex-1 py-3 bg-gray-100 text-gray-700 rounded-xl font-bold"
+                      className="flex-1 py-2 border border-[#333333] text-[#888888] hover:bg-[#111111] font-bold uppercase text-[10px]"
                     >
-                      Cancel
+                      ABORT
                     </button>
                     <button
                       type="submit"
-                      className="flex-1 py-3 bg-[var(--color-eulance-navy)] text-white rounded-xl font-bold hover:bg-[var(--color-eulance-blue)]"
+                      className="flex-1 py-2 bg-[#00e5ff] text-[#000000] font-bold hover:bg-[#00ccff] uppercase text-[10px]"
                     >
-                      Send Offer & Lock Escrow
+                      EXECUTE & LOCK
                     </button>
                   </div>
                 </form>

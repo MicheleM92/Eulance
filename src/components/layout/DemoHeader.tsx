@@ -39,33 +39,33 @@ export default function DemoHeader() {
   const isClientView = activeRole === "client";
 
   return (
-    <div className="bg-[var(--color-eulance-navy)] text-white border-b border-blue-900 sticky top-16 z-40">
+    <div className="bg-[#000000] text-white border-b border-[#222222] sticky top-16 z-40">
       {/* Top Banner Control Strip */}
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-2.5 flex flex-wrap items-center justify-between gap-3 text-xs">
+      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-2.5 flex flex-wrap items-center justify-between gap-3 text-xs font-mono">
         
         {/* Left: Role Perspective Switcher Pill */}
-        <div className="flex items-center gap-2 bg-white/10 p-1 rounded-xl border border-white/10">
+        <div className="flex items-center gap-2 bg-[#050505] p-1 border border-[#222222]">
           <button
             onClick={() => handleRoleToggle("client")}
-            className={`flex items-center gap-1.5 px-3 py-1.5 rounded-lg font-bold transition-all ${
+            className={`flex items-center gap-1.5 px-3 py-1.5 font-bold transition-all ${
               isClientView
-                ? "bg-[var(--color-eulance-yellow)] text-[var(--color-eulance-navy)] shadow-xs"
-                : "text-white/80 hover:text-white"
+                ? "bg-[#ffffff] text-[#000000]"
+                : "text-[#888888] hover:text-[#ffffff] hover:bg-[#111111]"
             }`}
           >
             <Briefcase size={14} />
-            Client Mode (Hiring)
+            [ CLIENT_MODE ]
           </button>
           <button
             onClick={() => handleRoleToggle("freelancer")}
-            className={`flex items-center gap-1.5 px-3 py-1.5 rounded-lg font-bold transition-all ${
+            className={`flex items-center gap-1.5 px-3 py-1.5 font-bold transition-all ${
               !isClientView
-                ? "bg-[var(--color-eulance-emerald)] text-white shadow-xs"
-                : "text-white/80 hover:text-white"
+                ? "bg-[#00ff66] text-[#000000]"
+                : "text-[#888888] hover:text-[#ffffff] hover:bg-[#111111]"
             }`}
           >
             <UserCheck size={14} />
-            Freelancer Mode (Working)
+            [ FREELANCER_MODE ]
           </button>
         </div>
 
@@ -142,54 +142,54 @@ export default function DemoHeader() {
       </div>
 
       {/* Sub-Navigation Bar based on active role */}
-      <div className="bg-[#102D54] border-t border-blue-900/60 text-xs">
+      <div className="bg-[#000000] border-t border-[#222222] text-xs font-mono">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 flex items-center gap-6 overflow-x-auto py-2">
           {isClientView ? (
             <>
               <Link
                 href="/demo/client"
-                className={`font-bold flex items-center gap-1.5 px-2 py-1 rounded-md transition-colors ${
-                  pathname === "/demo/client" ? "bg-white/15 text-white" : "text-white/70 hover:text-white"
+                className={`font-bold flex items-center gap-1.5 px-2 py-1 transition-colors ${
+                  pathname === "/demo/client" ? "bg-[#111111] text-[#00ff66]" : "text-[#888888] hover:text-[#ffffff]"
                 }`}
               >
                 <Layers size={13} /> Dashboard
               </Link>
               <Link
                 href="/demo/client/projects/new"
-                className={`font-bold flex items-center gap-1.5 px-2 py-1 rounded-md transition-colors text-[var(--color-eulance-yellow)] hover:underline`}
+                className={`font-bold flex items-center gap-1.5 px-2 py-1 transition-colors text-[#00e5ff] hover:bg-[#111111]`}
               >
-                <PlusCircle size={13} /> Post Project (AI Match)
+                <PlusCircle size={13} /> POST_PROJECT
               </Link>
               <Link
                 href="/demo/client/talent"
-                className={`font-bold flex items-center gap-1.5 px-2 py-1 rounded-md transition-colors ${
-                  pathname.includes("/talent") ? "bg-white/15 text-white" : "text-white/70 hover:text-white"
+                className={`font-bold flex items-center gap-1.5 px-2 py-1 transition-colors ${
+                  pathname.includes("/talent") ? "bg-[#111111] text-[#00ff66]" : "text-[#888888] hover:text-[#ffffff]"
                 }`}
               >
-                <Search size={13} /> Find Talent
+                <Search size={13} /> QUERY_TALENT
               </Link>
               <Link
                 href="/demo/messages"
-                className={`font-bold flex items-center gap-1.5 px-2 py-1 rounded-md transition-colors ${
-                  pathname.includes("/messages") ? "bg-white/15 text-white" : "text-white/70 hover:text-white"
+                className={`font-bold flex items-center gap-1.5 px-2 py-1 transition-colors ${
+                  pathname.includes("/messages") ? "bg-[#111111] text-[#00ff66]" : "text-[#888888] hover:text-[#ffffff]"
                 }`}
               >
-                <MessageSquare size={13} /> Messages & Offers
+                <MessageSquare size={13} /> COMM_STREAM
               </Link>
               <Link
                 href="/demo/contracts"
-                className={`font-bold flex items-center gap-1.5 px-2 py-1 rounded-md transition-colors ${
-                  pathname.includes("/contracts") ? "bg-white/15 text-white" : "text-white/70 hover:text-white"
+                className={`font-bold flex items-center gap-1.5 px-2 py-1 transition-colors ${
+                  pathname.includes("/contracts") ? "bg-[#111111] text-[#00ff66]" : "text-[#888888] hover:text-[#ffffff]"
                 }`}
               >
-                <FileText size={13} /> Contracts
+                <FileText size={13} /> SMART_CONTRACTS
               </Link>
               {activeContract && (
                 <Link
                   href={`/demo/workroom/${activeContract.id}`}
-                  className={`font-bold flex items-center gap-1.5 px-2.5 py-1 rounded-full bg-emerald-500/20 text-emerald-300 hover:bg-emerald-500/30 transition-colors ml-auto shrink-0`}
+                  className={`font-bold flex items-center gap-1.5 px-2.5 py-1 bg-[#111111] text-[#00e5ff] hover:bg-[#222222] transition-colors ml-auto shrink-0 border border-[#00e5ff]`}
                 >
-                  <CheckCircle2 size={13} /> Shared Workroom ({activeContract.escrowStatus})
+                  <CheckCircle2 size={13} /> WORKROOM [{activeContract.escrowStatus}]
                 </Link>
               )}
             </>
@@ -197,25 +197,22 @@ export default function DemoHeader() {
             <>
               <Link
                 href="/demo/freelancer"
-                className={`font-bold flex items-center gap-1.5 px-2 py-1 rounded-md transition-colors ${
-                  pathname === "/demo/freelancer" ? "bg-white/15 text-white" : "text-white/70 hover:text-white"
+                className={`font-bold flex items-center gap-1.5 px-2 py-1 transition-colors ${
+                  pathname === "/demo/freelancer" ? "bg-[#111111] text-[#00ff66]" : "text-[#888888] hover:text-[#ffffff]"
                 }`}
               >
                 <Layers size={13} /> Dashboard
               </Link>
               <Link
                 href="/demo/freelancer/jobs"
-                className={`font-bold flex items-center gap-1.5 px-2 py-1 rounded-md transition-colors ${
-                  pathname.includes("/jobs") ? "bg-white/15 text-white" : "text-white/70 hover:text-white"
+                className={`font-bold flex items-center gap-1.5 px-2 py-1 transition-colors ${
+                  pathname.includes("/jobs") ? "bg-[#111111] text-[#00ff66]" : "text-[#888888] hover:text-[#ffffff]"
                 }`}
               >
-                <Search size={13} /> Job Marketplace
+                <Search size={13} /> JOB_QUERY
               </Link>
               <Link
                 href="/demo/freelancer/earnings"
-                className={`font-bold flex items-center gap-1.5 px-2 py-1 rounded-md transition-colors ${
-                  pathname.includes("/earnings") ? "bg-white/15 text-white" : "text-white/70 hover:text-white"
-                }`}
               >
                 <Coins size={13} /> Earnings & Invoices
               </Link>

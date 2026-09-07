@@ -8,12 +8,9 @@ import DemoHeader from "@/components/layout/DemoHeader";
 import DirectMessagingModal from "@/components/messaging/DirectMessagingModal";
 import {
   ShieldCheck,
-  Star,
   Award,
-  MapPin,
   CheckCircle2,
   Globe,
-  FileText,
   MessageSquare,
   ArrowLeft,
   Send,
@@ -38,7 +35,7 @@ export default function FreelancerProfilePage({ params }: { params: Promise<{ id
   };
 
   return (
-    <div className="min-h-screen bg-[var(--color-eulance-soft)] flex flex-col">
+    <div className="min-h-screen bg-[#000000] text-white flex flex-col font-mono">
       <DemoHeader />
 
       <main className="flex-1 py-10">
@@ -46,39 +43,39 @@ export default function FreelancerProfilePage({ params }: { params: Promise<{ id
           
           <button
             onClick={() => router.back()}
-            className="inline-flex items-center gap-1 text-xs font-bold text-gray-600 hover:text-[var(--color-eulance-navy)] transition-colors"
+            className="inline-flex items-center gap-1 text-[10px] font-bold text-[#888888] hover:text-[#ffffff] transition-colors uppercase"
           >
-            <ArrowLeft size={16} /> Back to Talent Search
+            <ArrowLeft size={14} /> TERMINATE_PROFILE_VIEW
           </button>
 
           {/* Profile Hero Card */}
-          <div className="bg-white rounded-3xl p-8 md:p-10 shadow-xs border border-gray-200">
-            <div className="flex flex-col md:flex-row justify-between items-start md:items-center gap-6 pb-8 border-b border-gray-100">
+          <div className="bg-[#050505] p-8 md:p-10 border border-[#222222]">
+            <div className="flex flex-col md:flex-row justify-between items-start md:items-center gap-6 pb-8 border-b border-[#222222]">
               <div className="flex items-start md:items-center gap-6">
-                <div className="w-20 h-20 rounded-3xl bg-[var(--color-eulance-navy)] text-[var(--color-eulance-yellow)] font-black text-2xl flex items-center justify-center shrink-0 shadow-md">
+                <div className="w-20 h-20 bg-[#111111] border border-[#333333] text-[#00ff66] font-black text-2xl flex items-center justify-center shrink-0">
                   {freelancer.avatar}
                 </div>
                 <div>
                   <div className="flex flex-wrap items-center gap-3 mb-1">
-                    <h1 className="text-3xl font-black text-[var(--color-eulance-navy)]">{freelancer.name}</h1>
+                    <h1 className="text-3xl font-black text-white uppercase">{freelancer.name}</h1>
                     {freelancer.verified && (
-                      <span className="inline-flex items-center gap-1 px-2.5 py-0.5 rounded-full bg-blue-50 text-blue-700 font-bold text-xs">
-                        <ShieldCheck size={14} /> EU Verified Identity & VAT
+                      <span className="inline-flex items-center gap-1 px-2.5 py-0.5 border border-[#00e5ff] text-[#00e5ff] font-bold text-[10px] uppercase">
+                        <ShieldCheck size={12} /> EU_VERIFIED
                       </span>
                     )}
                     {freelancer.founder && (
-                      <span className="inline-flex items-center gap-1 px-2.5 py-0.5 rounded-full bg-amber-100 text-amber-900 font-extrabold text-xs">
-                        <Award size={14} /> Founder Member #{freelancer.founderBadgeNumber}
+                      <span className="inline-flex items-center gap-1 px-2.5 py-0.5 border border-[#00ff66] text-[#00ff66] font-extrabold text-[10px] uppercase">
+                        <Award size={12} /> NODE_FND_{freelancer.founderBadgeNumber}
                       </span>
                     )}
                   </div>
-                  <p className="text-base font-bold text-gray-600 mb-2">{freelancer.role}</p>
-                  <div className="flex flex-wrap gap-4 text-xs font-semibold text-gray-500">
-                    <span>📍 {freelancer.city}, {freelancer.country} ({freelancer.countryCode})</span>
+                  <p className="text-base font-bold text-[#00e5ff] mb-2 uppercase">{freelancer.role}</p>
+                  <div className="flex flex-wrap gap-4 text-[10px] font-semibold text-[#888888] uppercase tracking-widest">
+                    <span>LOC: {freelancer.countryCode}</span>
                     <span>•</span>
-                    <span>⚡ {freelancer.availability}</span>
+                    <span>STATUS: {freelancer.availability}</span>
                     <span>•</span>
-                    <span className="font-mono">VAT: {freelancer.vatNumber}</span>
+                    <span>VAT: {freelancer.vatNumber}</span>
                   </div>
                 </div>
               </div>
@@ -86,15 +83,15 @@ export default function FreelancerProfilePage({ params }: { params: Promise<{ id
               <div className="flex flex-col sm:flex-row gap-3 w-full md:w-auto">
                 <button
                   onClick={() => setIsMessagingOpen(true)}
-                  className="px-5 py-3 bg-gray-100 hover:bg-gray-200 text-[var(--color-eulance-navy)] font-bold rounded-xl text-xs text-center transition-colors flex items-center justify-center gap-2 cursor-pointer"
+                  className="px-5 py-2.5 border border-[#333333] hover:bg-[#111111] text-[#ffffff] font-bold text-[10px] uppercase transition-colors flex items-center justify-center gap-2 cursor-pointer"
                 >
-                  <MessageSquare size={16} /> Direct Message
+                  <MessageSquare size={14} /> P2P_MESSAGE
                 </button>
                 <button
                   onClick={handleSendOffer}
-                  className="px-6 py-3 bg-[var(--color-eulance-navy)] hover:bg-[var(--color-eulance-blue)] text-white font-extrabold rounded-xl text-xs text-center transition-colors shadow-md flex items-center justify-center gap-2 cursor-pointer"
+                  className="px-6 py-2.5 bg-[#00e5ff] hover:bg-[#00ccff] text-[#000000] font-extrabold text-[10px] uppercase transition-colors flex items-center justify-center gap-2 cursor-pointer"
                 >
-                  <Send size={16} className="text-[var(--color-eulance-yellow)]" /> Send Formal Offer (€1,000)
+                  <Send size={14} /> DISPATCH_OFFER_PAYLOAD
                 </button>
               </div>
             </div>
@@ -112,22 +109,22 @@ export default function FreelancerProfilePage({ params }: { params: Promise<{ id
             {/* Profile Metrics Bar */}
             <div className="grid grid-cols-2 md:grid-cols-4 gap-6 pt-6 text-center">
               <div>
-                <div className="text-xs font-bold text-gray-400 uppercase">Hourly Rate</div>
-                <div className="text-2xl font-black text-[var(--color-eulance-navy)] mt-1">€{freelancer.hourlyRate}/hr</div>
+                <div className="text-[10px] font-bold text-[#888888] uppercase tracking-widest">BASE_YIELD</div>
+                <div className="text-2xl font-black text-white mt-1">€{freelancer.hourlyRate}<span className="text-xs text-[#888888]">/HR</span></div>
               </div>
               <div>
-                <div className="text-xs font-bold text-gray-400 uppercase">Reputation Rating</div>
-                <div className="text-2xl font-black text-amber-500 mt-1 flex items-center justify-center gap-1">
-                  ⭐ {freelancer.rating} <span className="text-xs text-gray-400 font-normal">(5.0 max)</span>
+                <div className="text-[10px] font-bold text-[#888888] uppercase tracking-widest">REP_SCORE</div>
+                <div className="text-2xl font-black text-[#00e5ff] mt-1 flex items-center justify-center gap-1">
+                  {freelancer.rating} <span className="text-[10px] text-[#444444] font-normal uppercase">/5.0</span>
                 </div>
               </div>
               <div>
-                <div className="text-xs font-bold text-gray-400 uppercase">Jobs Completed</div>
-                <div className="text-2xl font-black text-emerald-600 mt-1">{freelancer.jobsCompleted}</div>
+                <div className="text-[10px] font-bold text-[#888888] uppercase tracking-widest">CYCLES_DONE</div>
+                <div className="text-2xl font-black text-[#00ff66] mt-1">{freelancer.jobsCompleted}</div>
               </div>
               <div>
-                <div className="text-xs font-bold text-gray-400 uppercase">Founder Fee Tier</div>
-                <div className="text-2xl font-black text-blue-600 mt-1">0% Fee Promo</div>
+                <div className="text-[10px] font-bold text-[#888888] uppercase tracking-widest">FEE_TIER</div>
+                <div className="text-2xl font-black text-[#ffffff] mt-1 uppercase">0%_PROMO</div>
               </div>
             </div>
           </div>
@@ -138,23 +135,23 @@ export default function FreelancerProfilePage({ params }: { params: Promise<{ id
             {/* Left 2 Cols: Bio & Portfolio */}
             <div className="md:col-span-2 space-y-6">
               
-              <div className="bg-white rounded-3xl p-8 shadow-xs border border-gray-200">
-                <h3 className="text-lg font-extrabold text-[var(--color-eulance-navy)] mb-4">About {freelancer.name}</h3>
-                <p className="text-xs text-gray-700 leading-relaxed space-y-3 font-normal">
+              <div className="bg-[#050505] p-8 border border-[#222222]">
+                <h3 className="text-sm font-extrabold text-[#888888] mb-4 uppercase tracking-widest border-b border-[#222222] pb-2">NODE_DATA</h3>
+                <p className="text-xs text-[#aaaaaa] leading-relaxed space-y-3 font-normal">
                   {freelancer.bio}
                 </p>
               </div>
 
               {/* Verified Skills */}
-              <div className="bg-white rounded-3xl p-8 shadow-xs border border-gray-200">
-                <h3 className="text-lg font-extrabold text-[var(--color-eulance-navy)] mb-4">Verified European Skills</h3>
+              <div className="bg-[#050505] p-8 border border-[#222222]">
+                <h3 className="text-sm font-extrabold text-[#888888] mb-4 uppercase tracking-widest border-b border-[#222222] pb-2">VERIFIED_VECTORS</h3>
                 <div className="flex flex-wrap gap-2">
                   {freelancer.skills.map((skill) => (
                     <span
                       key={skill}
-                      className="px-3 py-1.5 bg-blue-50 text-[var(--color-eulance-navy)] rounded-xl text-xs font-bold flex items-center gap-1.5 border border-blue-100"
+                      className="px-2.5 py-1 border border-[#333333] text-[#ffffff] text-[10px] font-bold flex items-center gap-1.5 uppercase"
                     >
-                      <CheckCircle2 size={14} className="text-emerald-500" /> {skill}
+                      <CheckCircle2 size={12} className="text-[#00ff66]" /> {skill}
                     </span>
                   ))}
                 </div>
@@ -162,17 +159,17 @@ export default function FreelancerProfilePage({ params }: { params: Promise<{ id
 
               {/* Portfolio Items */}
               {freelancer.portfolioItems && freelancer.portfolioItems.length > 0 && (
-                <div className="bg-white rounded-3xl p-8 shadow-xs border border-gray-200">
-                  <h3 className="text-lg font-extrabold text-[var(--color-eulance-navy)] mb-4">Featured Work & Portfolio</h3>
+                <div className="bg-[#050505] p-8 border border-[#222222]">
+                  <h3 className="text-sm font-extrabold text-[#888888] mb-4 uppercase tracking-widest border-b border-[#222222] pb-2">HASHED_PORTFOLIO_OUTPUT</h3>
                   <div className="grid gap-4">
                     {freelancer.portfolioItems.map((item, idx) => (
-                      <div key={idx} className="p-4 rounded-2xl bg-[var(--color-eulance-soft)] border border-gray-200 flex justify-between items-center">
+                      <div key={idx} className="p-4 bg-[#111111] border border-[#333333] flex justify-between items-center">
                         <div>
-                          <span className="text-[10px] font-bold text-gray-500 uppercase">{item.category}</span>
-                          <h4 className="font-extrabold text-sm text-[var(--color-eulance-navy)]">{item.title}</h4>
+                          <span className="text-[9px] font-bold text-[#00ff66] uppercase">{item.category}</span>
+                          <h4 className="font-extrabold text-xs text-white uppercase mt-1">{item.title}</h4>
                         </div>
-                        <span className="px-3 py-1 bg-white text-xs font-bold text-[var(--color-eulance-navy)] rounded-lg border border-gray-200">
-                          Verified Contract
+                        <span className="px-2 py-1 bg-[#000000] text-[9px] font-bold text-[#888888] border border-[#222222] uppercase tracking-widest">
+                          VERIFIED_TX
                         </span>
                       </div>
                     ))}
@@ -185,23 +182,23 @@ export default function FreelancerProfilePage({ params }: { params: Promise<{ id
             {/* Right Column: Languages & Compliance Summary */}
             <div className="space-y-6">
               
-              <div className="bg-white rounded-3xl p-6 shadow-xs border border-gray-200 space-y-4">
-                <h3 className="text-sm font-extrabold text-[var(--color-eulance-navy)] uppercase tracking-wider">Languages</h3>
-                <div className="space-y-2 text-xs font-medium text-gray-700">
+              <div className="bg-[#050505] p-6 border border-[#222222] space-y-4">
+                <h3 className="text-[10px] font-extrabold text-[#888888] uppercase tracking-widest border-b border-[#222222] pb-2">COMM_PROTOCOLS</h3>
+                <div className="space-y-2 text-xs font-medium text-white uppercase">
                   {freelancer.languages.map((lang) => (
                     <div key={lang} className="flex items-center gap-2">
-                      <Globe size={14} className="text-[var(--color-eulance-navy)]" /> {lang}
+                      <Globe size={14} className="text-[#00e5ff]" /> {lang}
                     </div>
                   ))}
                 </div>
               </div>
 
-              <div className="bg-emerald-50/80 rounded-3xl p-6 border border-emerald-200 space-y-3">
-                <div className="flex items-center gap-2 text-emerald-900 font-extrabold text-sm">
-                  <ShieldCheck size={18} className="text-emerald-600" /> Verified EU Compliance
+              <div className="bg-[#050505] p-6 border border-[#00ff66] space-y-3">
+                <div className="flex items-center gap-2 text-[#00ff66] font-extrabold text-xs uppercase">
+                  <ShieldCheck size={16} /> EU_COMPLIANCE_VALID
                 </div>
-                <p className="text-xs text-emerald-800 leading-relaxed font-medium">
-                  This freelancer is registered in {freelancer.country} with valid VAT registration ({freelancer.vatNumber}). Transactions automatically issue reverse-charge EU invoices.
+                <p className="text-[10px] text-[#00aa44] leading-relaxed font-medium uppercase">
+                  Node is registered in {freelancer.countryCode} with active VAT index ({freelancer.vatNumber}). Transactions automatically compute reverse-charge EU routing.
                 </p>
               </div>
 

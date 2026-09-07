@@ -1,45 +1,43 @@
 @import "tailwindcss";
 
 @theme {
-  --color-eulance-navy: #173F73;
-  --color-eulance-deepNavy: #0F2A4D;
-  --color-eulance-blue: #214777;
-  --color-eulance-lightBlue: #2563EB;
-  --color-eulance-yellow: #F5C814;
-  --color-eulance-gold: #F5C814;
-  --color-eulance-mint: #DCEDEA;
-  --color-eulance-emerald: #059669;
-  --color-eulance-soft: #F8FAFC;
-  --color-eulance-border: #E2E8F0;
-  --color-eulance-text: #1E293B;
-  --color-eulance-muted: #64748B;
-  --color-eulance-lightMuted: #94A3B8;
+  --color-eulance-navy: #000000;
+  --color-eulance-deepNavy: #050505;
+  --color-eulance-blue: #111111;
+  --color-eulance-lightBlue: #00ff66;
+  --color-eulance-yellow: #00e5ff;
+  --color-eulance-gold: #00e5ff;
+  --color-eulance-mint: #0a0a0a;
+  --color-eulance-emerald: #00ff66;
+  --color-eulance-soft: #050505;
+  --color-eulance-border: #222222;
+  --color-eulance-text: #ffffff;
+  --color-eulance-muted: #888888;
+  --color-eulance-lightMuted: #555555;
   
-  --color-background: #FFFFFF;
-  --color-foreground: #0F172A;
+  --color-background: #000000;
+  --color-foreground: #ffffff;
 }
 
 body {
   background-color: var(--color-background);
   color: var(--color-foreground);
-  font-family: var(--font-inter), system-ui, -apple-system, sans-serif;
+  font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono", "Courier New", monospace;
   overflow-x: hidden;
   scroll-behavior: smooth;
 }
 
 /* Custom Utilities */
 .glass-panel {
-  background: rgba(255, 255, 255, 0.9);
-  backdrop-filter: blur(12px);
-  -webkit-backdrop-filter: blur(12px);
-  border: 1px solid rgba(226, 232, 240, 0.8);
+  background: #050505;
+  border: 1px solid #222222;
+  border-radius: 0;
 }
 
 .glass-panel-dark {
-  background: rgba(23, 63, 115, 0.95);
-  backdrop-filter: blur(12px);
-  -webkit-backdrop-filter: blur(12px);
-  border: 1px solid rgba(255, 255, 255, 0.15);
+  background: #000000;
+  border: 1px solid #333333;
+  border-radius: 0;
 }
 
 /* Smooth custom scrollbars */
