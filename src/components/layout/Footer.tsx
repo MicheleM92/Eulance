@@ -32,32 +32,32 @@ export default function Footer() {
             <h3 className="font-bold text-sm uppercase tracking-wider mb-4 text-[var(--color-eulance-yellow)]">Navigation</h3>
             <ul className="space-y-2 text-xs">
               <li>
-                <Link href="/" className="text-white/70 hover:text-white transition-colors">
+                <Link href="/" className="text-white/70 hover:text-[var(--color-eulance-yellow)] hover:underline underline-offset-4 transition-all">
                   Home Page
                 </Link>
               </li>
               <li>
-                <Link href="/demo" className="text-white/70 hover:text-white transition-colors">
+                <Link href="/demo" className="text-white/70 hover:text-[var(--color-eulance-yellow)] hover:underline underline-offset-4 transition-all">
                   Try EULANCE Demo
                 </Link>
               </li>
               <li>
-                <Link href="/demo/client" className="text-white/70 hover:text-white transition-colors">
+                <Link href="/demo/client" className="text-white/70 hover:text-[var(--color-eulance-yellow)] hover:underline underline-offset-4 transition-all">
                   Client Portal
                 </Link>
               </li>
               <li>
-                <Link href="/demo/freelancer" className="text-white/70 hover:text-white transition-colors">
+                <Link href="/demo/freelancer" className="text-white/70 hover:text-[var(--color-eulance-yellow)] hover:underline underline-offset-4 transition-all">
                   Freelancer Portal
                 </Link>
               </li>
               <li>
-                <Link href="/pricing" className="text-white/70 hover:text-white transition-colors">
+                <Link href="/pricing" className="text-white/70 hover:text-[var(--color-eulance-yellow)] hover:underline underline-offset-4 transition-all">
                   Pricing & Calculator
                 </Link>
               </li>
               <li>
-                <Link href="/business-plan" className="text-white/70 hover:text-white transition-colors">
+                <Link href="/business-plan" className="text-white/70 hover:text-[var(--color-eulance-yellow)] hover:underline underline-offset-4 transition-all">
                   Business Plan (2027–2030)
                 </Link>
               </li>

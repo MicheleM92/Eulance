@@ -2,6 +2,7 @@
 
 import React, { useState } from "react";
 import Link from "next/link";
+import { motion } from "framer-motion";
 import { EULANCE_FEE_CONFIG, calculateContractBreakdown } from "@/lib/config/fees";
 import { CheckCircle2, Zap, Sparkles, HelpCircle, ArrowRight, ShieldCheck, Euro } from "lucide-react";
 
@@ -33,7 +34,12 @@ export default function PricingPage() {
         </div>
 
         {/* Interactive Fee Breakdown Calculator Simulator */}
-        <div className="bg-white rounded-3xl p-8 md:p-12 shadow-sm border border-[var(--color-eulance-border)] mb-16 max-w-4xl mx-auto">
+        <motion.div 
+          initial={{ opacity: 0, y: 30 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.6 }}
+          className="bg-white rounded-3xl p-8 md:p-12 shadow-sm border border-[var(--color-eulance-border)] mb-16 max-w-4xl mx-auto"
+        >
           <div className="flex items-center justify-between border-b border-gray-100 pb-6 mb-8">
             <div>
               <h2 className="text-2xl font-bold text-[var(--color-eulance-navy)]">Interactive Fee Simulator</h2>
@@ -133,10 +139,15 @@ export default function PricingPage() {
               Test This Calculation in Demo <ArrowRight size={16} />
             </Link>
           </div>
-        </div>
+        </motion.div>
 
         {/* Pricing Tiers Grid */}
-        <div className="grid md:grid-cols-3 gap-8 max-w-6xl mx-auto mb-16">
+        <motion.div 
+          initial={{ opacity: 0, y: 30 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.6, delay: 0.2 }}
+          className="grid md:grid-cols-3 gap-8 max-w-6xl mx-auto mb-16"
+        >
           
           {/* Freelancers Tier */}
           <div className="bg-white p-8 rounded-3xl border border-gray-200 shadow-sm flex flex-col justify-between">
@@ -263,7 +274,7 @@ export default function PricingPage() {
               Explore Pro Plan
             </Link>
           </div>
-        </div>
+        </motion.div>
 
         {/* Add-on Services Section */}
         <div className="bg-white rounded-3xl p-8 shadow-xs border border-gray-200 max-w-4xl mx-auto">
