@@ -36,7 +36,7 @@ export default function Home() {
   return (
     <div className="flex flex-col min-h-screen bg-white">
       {/* Hero Section */}
-      <section className="relative pt-16 pb-28 overflow-hidden bg-gradient-to-b from-[var(--color-eulance-soft)] via-white to-white">
+      <section className="relative pt-16 pb-28 overflow-hidden bg-[var(--color-eulance-soft)]">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
           <motion.div
             initial="hidden"
