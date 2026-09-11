@@ -130,16 +130,33 @@ export default function JobDetailPage({ params }: { params: Promise<{ id: string
                 <div className="grid md:grid-cols-2 gap-6">
                   <div>
                     <label className="block text-[var(--color-eulance-navy)] uppercase tracking-wider mb-2 font-bold">Your Total Bid Amount (€)</label>
-                    <input
-                      type="number"
-                      required
-                      value={bidAmount}
-                      onChange={(e) => setBidAmount(Number(e.target.value))}
-                      className="w-full p-3.5 border border-gray-300 rounded-xl text-sm font-medium focus:ring-2 focus:ring-[var(--color-eulance-navy)] outline-none"
-                    />
-                    <span className="text-[10px] text-emerald-600 font-bold block mt-1">
-                      You will receive 100% (€{bidAmount}) under Founder 0% promo
-                    </span>
+                    <div className="relative">
+                      <span className="absolute left-4 top-1/2 -translate-y-1/2 text-gray-400 font-bold">€</span>
+                      <input
+                        type="number"
+                        required
+                        value={bidAmount}
+                        onChange={(e) => setBidAmount(Number(e.target.value))}
+                        className="w-full pl-8 pr-4 py-3.5 border border-gray-300 rounded-xl text-sm font-medium focus:ring-2 focus:ring-[var(--color-eulance-navy)] outline-none"
+                      />
+                    </div>
+                    
+                    {/* Fee Breakdown (Upwork Style) */}
+                    <div className="mt-4 p-4 bg-gray-50 rounded-xl border border-gray-200 space-y-3">
+                      <div className="flex justify-between items-center text-sm">
+                        <span className="text-gray-600 font-bold">Standard 5% Platform Fee</span>
+                        <span className="text-gray-400 line-through">€{(bidAmount * 0.05).toFixed(2)}</span>
+                      </div>
+                      <div className="flex justify-between items-center text-sm">
+                        <span className="text-emerald-700 font-bold">Founder Promo Fee (0%)</span>
+                        <span className="text-emerald-700 font-bold">- €{(bidAmount * 0.05).toFixed(2)}</span>
+                      </div>
+                      <hr className="border-gray-200" />
+                      <div className="flex justify-between items-center">
+                        <span className="text-[var(--color-eulance-navy)] font-black">You'll Receive</span>
+                        <span className="text-lg font-black text-[var(--color-eulance-navy)]">€{bidAmount.toFixed(2)}</span>
+                      </div>
+                    </div>
                   </div>
 
                   <div>

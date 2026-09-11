@@ -199,6 +199,25 @@ export default function WorkroomPage({ params }: { params: Promise<{ id: string 
                     </span>
                   </div>
 
+                  {/* Milestone Breakdown (Upwork Style) */}
+                  <div className="border border-gray-200 rounded-2xl overflow-hidden">
+                    <div className="bg-gray-50 px-4 py-2 border-b border-gray-200 text-xs font-bold text-gray-500 uppercase tracking-wider flex justify-between">
+                      <span>Milestones</span>
+                      <span>Amount</span>
+                    </div>
+                    <div className="p-4 flex justify-between items-center bg-white">
+                      <div>
+                        <div className="font-bold text-[var(--color-eulance-navy)] text-sm">1. Final Project Deliverables</div>
+                        <div className="text-xs text-gray-500 flex items-center gap-1 mt-1">
+                          <CheckCircle2 size={12} className="text-emerald-500"/> Active & Escrow Funded
+                        </div>
+                      </div>
+                      <div className="font-black text-[var(--color-eulance-navy)]">
+                        €{contract.amount.toLocaleString()}
+                      </div>
+                    </div>
+                  </div>
+
                   {!isClient ? (
                     <form onSubmit={handleFreelancerSubmitWork} className="space-y-4 text-xs font-semibold">
                       <div className="p-4 bg-emerald-50/80 rounded-2xl border border-emerald-200">

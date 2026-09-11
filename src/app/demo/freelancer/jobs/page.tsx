@@ -4,12 +4,20 @@ import React, { useState } from "react";
 import Link from "next/link";
 import { useDemoState } from "@/lib/context/DemoStateContext";
 import DemoHeader from "@/components/layout/DemoHeader";
-import { Search, Filter, MapPin, Clock, Briefcase, ArrowRight, ShieldCheck } from "lucide-react";
+import { Search, Filter, MapPin, Clock, Briefcase, ArrowRight, ShieldCheck, BookmarkPlus } from "lucide-react";
 
 export default function JobMarketplacePage() {
   const { projects } = useDemoState();
   const [searchTerm, setSearchTerm] = useState("");
   const [categoryFilter, setCategoryFilter] = useState("All");
+  const [experienceFilter, setExperienceFilter] = useState<string[]>([]);
+  const [budgetFilter, setBudgetFilter] = useState<string>("All");
+
+  const toggleExperience = (level: string) => {
+    setExperienceFilter(prev => 
+      prev.includes(level) ? prev.filter(l => l !== level) : [...prev, level]
+    );
+  };
 
   const filteredProjects = projects.filter((p) => {
     const matchesSearch =
@@ -18,112 +26,182 @@ export default function JobMarketplacePage() {
       p.skillsRequired.some((s) => s.toLowerCase().includes(searchTerm.toLowerCase()));
 
     const matchesCategory = categoryFilter === "All" || p.category === categoryFilter;
+    
+    const matchesExperience = experienceFilter.length === 0 || experienceFilter.includes(p.experienceLevel);
+    
+    let matchesBudget = true;
+    if (budgetFilter === "<1000") matchesBudget = p.budgetValue < 1000;
+    if (budgetFilter === "1000-3000") matchesBudget = p.budgetValue >= 1000 && p.budgetValue <= 3000;
+    if (budgetFilter === ">3000") matchesBudget = p.budgetValue > 3000;
 
-    return matchesSearch && matchesCategory;
+    return matchesSearch && matchesCategory && matchesExperience && matchesBudget;
   });
 
   return (
-    <div className="min-h-screen bg-[var(--color-eulance-soft)] flex flex-col">
+    <div className="min-h-screen bg-[#f9fafb] flex flex-col">
       <DemoHeader />
 
-      <main className="flex-1 py-10">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 space-y-8">
+      <main className="flex-1 py-8">
+        <div className="max-w-[1400px] mx-auto px-4 sm:px-6 lg:px-8">
           
-          {/* Header */}
-          <div className="bg-white rounded-3xl p-8 shadow-xs border border-gray-200">
-            <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-emerald-100 text-emerald-800 font-bold text-xs mb-3">
-              100% Free Proposals • Zero Pay-to-Play Bid Connects
-            </div>
-            <h1 className="text-3xl font-black text-[var(--color-eulance-navy)] tracking-tight">
-              European Job Marketplace
-            </h1>
-            <p className="text-xs text-[var(--color-eulance-muted)] mt-1">
-              Work with verified European companies under EU jurisdiction contracts and protected escrow payments.
-            </p>
+          <div className="flex flex-col lg:flex-row gap-8">
+            
+            {/* LEFT SIDEBAR: FILTERS */}
+            <aside className="w-full lg:w-64 shrink-0 space-y-6">
+              <div className="bg-white rounded-2xl p-6 shadow-sm border border-gray-200">
+                <h2 className="text-lg font-bold text-[var(--color-eulance-navy)] mb-4">Filter by</h2>
 
-            {/* Filters */}
-            <div className="mt-6 flex flex-col md:flex-row gap-4">
-              <div className="relative flex-1">
-                <Search size={18} className="absolute left-4 top-1/2 -translate-y-1/2 text-gray-400" />
+                {/* Category */}
+                <div className="mb-6">
+                  <h3 className="text-xs font-bold text-gray-500 uppercase tracking-wider mb-3">Category</h3>
+                  <select
+                    value={categoryFilter}
+                    onChange={(e) => setCategoryFilter(e.target.value)}
+                    className="w-full p-2.5 border border-gray-300 rounded-lg text-sm bg-gray-50 focus:ring-2 focus:ring-[var(--color-eulance-navy)] outline-none"
+                  >
+                    <option value="All">All Categories</option>
+                    <option value="Software Development">Software Development</option>
+                    <option value="Design">Design & UX/UI</option>
+                  </select>
+                </div>
+
+                <hr className="border-gray-100 my-6" />
+
+                {/* Experience Level */}
+                <div className="mb-6">
+                  <h3 className="text-xs font-bold text-gray-500 uppercase tracking-wider mb-3">Experience Level</h3>
+                  <div className="space-y-2">
+                    {["Entry", "Intermediate", "Senior", "Expert"].map(level => (
+                      <label key={level} className="flex items-center gap-2 cursor-pointer">
+                        <input 
+                          type="checkbox" 
+                          checked={experienceFilter.includes(level)}
+                          onChange={() => toggleExperience(level)}
+                          className="rounded text-[var(--color-eulance-navy)] focus:ring-[var(--color-eulance-navy)]"
+                        />
+                        <span className="text-sm text-gray-700">{level}</span>
+                      </label>
+                    ))}
+                  </div>
+                </div>
+
+                <hr className="border-gray-100 my-6" />
+
+                {/* Budget */}
+                <div className="mb-6">
+                  <h3 className="text-xs font-bold text-gray-500 uppercase tracking-wider mb-3">Fixed Budget</h3>
+                  <div className="space-y-2">
+                    {[
+                      { label: "Any budget", val: "All" },
+                      { label: "Less than €1,000", val: "<1000" },
+                      { label: "€1,000 - €3,000", val: "1000-3000" },
+                      { label: "More than €3,000", val: ">3000" },
+                    ].map(b => (
+                      <label key={b.val} className="flex items-center gap-2 cursor-pointer">
+                        <input 
+                          type="radio" 
+                          name="budget"
+                          value={b.val}
+                          checked={budgetFilter === b.val}
+                          onChange={(e) => setBudgetFilter(e.target.value)}
+                          className="text-[var(--color-eulance-navy)] focus:ring-[var(--color-eulance-navy)]"
+                        />
+                        <span className="text-sm text-gray-700">{b.label}</span>
+                      </label>
+                    ))}
+                  </div>
+                </div>
+
+                <hr className="border-gray-100 my-6" />
+
+                {/* Client History */}
+                <div>
+                  <h3 className="text-xs font-bold text-gray-500 uppercase tracking-wider mb-3">Client History</h3>
+                  <label className="flex items-center gap-2 cursor-pointer">
+                    <input type="checkbox" defaultChecked className="rounded text-[var(--color-eulance-navy)] focus:ring-[var(--color-eulance-navy)]" />
+                    <span className="text-sm text-gray-700">Payment Verified</span>
+                  </label>
+                </div>
+
+              </div>
+            </aside>
+
+            {/* MAIN CONTENT: JOB FEED */}
+            <div className="flex-1 space-y-6">
+              
+              {/* Search Bar */}
+              <div className="relative">
+                <Search size={20} className="absolute left-4 top-1/2 -translate-y-1/2 text-gray-400" />
                 <input
                   type="text"
                   placeholder="Search jobs by keyword or stack (e.g. Next.js, Figma, Node)..."
                   value={searchTerm}
                   onChange={(e) => setSearchTerm(e.target.value)}
-                  className="w-full pl-11 pr-4 py-3 border border-gray-300 rounded-xl text-xs font-semibold focus:ring-2 focus:ring-[var(--color-eulance-navy)] outline-none"
+                  className="w-full pl-12 pr-4 py-4 bg-white border border-gray-200 shadow-sm rounded-2xl text-sm font-medium focus:ring-2 focus:ring-[var(--color-eulance-navy)] outline-none"
                 />
               </div>
 
-              <div className="flex items-center gap-2">
-                <Filter size={16} className="text-gray-500" />
-                <select
-                  value={categoryFilter}
-                  onChange={(e) => setCategoryFilter(e.target.value)}
-                  className="py-3 px-4 border border-gray-300 rounded-xl text-xs font-bold bg-white text-[var(--color-eulance-navy)] outline-none"
-                >
-                  <option value="All">All Categories</option>
-                  <option value="Software Development">Software Development</option>
-                  <option value="Design">Design & UX/UI</option>
-                </select>
+              <div className="flex justify-between items-end">
+                <h2 className="text-xl font-extrabold text-[var(--color-eulance-navy)]">
+                  Jobs you might like
+                </h2>
+                <span className="text-sm text-gray-500 font-medium">
+                  {filteredProjects.length} jobs found
+                </span>
               </div>
+
+              {/* Job Listings Feed */}
+              <div className="bg-white rounded-2xl border border-gray-200 shadow-sm divide-y divide-gray-100">
+                {filteredProjects.length === 0 ? (
+                  <div className="p-12 text-center text-gray-500">No jobs match your criteria. Try adjusting the filters.</div>
+                ) : (
+                  filteredProjects.map((project) => (
+                    <div
+                      key={project.id}
+                      className="p-6 md:p-8 hover:bg-gray-50 transition-colors flex flex-col gap-4"
+                    >
+                      <div className="flex justify-between items-start gap-4">
+                        <div className="space-y-2">
+                          <p className="text-xs text-gray-400 font-medium tracking-wide">
+                            Posted {project.postedDate}
+                          </p>
+                          <Link href={`/demo/freelancer/jobs/${project.id}`} className="hover:underline">
+                            <h3 className="text-xl font-bold text-[var(--color-eulance-navy)]">{project.title}</h3>
+                          </Link>
+                          <p className="text-xs font-semibold text-gray-500">
+                            Fixed-price - {project.experienceLevel} level - Est. Budget: <span className="text-gray-900">{project.budget}</span>
+                          </p>
+                        </div>
+                        <div className="flex gap-2">
+                          <button className="p-2 rounded-full border border-gray-200 text-gray-400 hover:text-[var(--color-eulance-navy)] hover:border-[var(--color-eulance-navy)] transition-colors">
+                            <BookmarkPlus size={18} />
+                          </button>
+                        </div>
+                      </div>
+
+                      <p className="text-sm text-gray-700 leading-relaxed line-clamp-2">
+                        {project.description}
+                      </p>
+
+                      <div className="flex flex-wrap gap-2 pt-1">
+                        {project.skillsRequired.map((skill) => (
+                          <span key={skill} className="px-3 py-1 bg-gray-100 text-gray-700 rounded-full text-xs font-semibold">
+                            {skill}
+                          </span>
+                        ))}
+                      </div>
+
+                      <div className="flex flex-wrap items-center gap-4 text-xs font-medium text-gray-500 pt-3">
+                        <span className="flex items-center gap-1"><ShieldCheck size={14} className="text-emerald-600"/> Payment verified</span>
+                        <span className="flex items-center gap-1">🏢 {project.client} ({project.clientCountry})</span>
+                        <span>Proposals: <b>{project.proposalsCount}</b></span>
+                      </div>
+                    </div>
+                  ))
+                )}
+              </div>
+
             </div>
-          </div>
-
-          {/* Job Listings Grid */}
-          <div className="space-y-4">
-            {filteredProjects.map((project) => (
-              <div
-                key={project.id}
-                className="bg-white rounded-3xl p-8 border border-gray-200 shadow-xs hover:shadow-md transition-all flex flex-col md:flex-row justify-between items-start md:items-center gap-6"
-              >
-                <div className="space-y-3 max-w-3xl">
-                  <div className="flex flex-wrap items-center gap-2">
-                    <span className="px-2.5 py-0.5 rounded bg-blue-50 text-[var(--color-eulance-navy)] font-bold text-[10px]">
-                      {project.category}
-                    </span>
-                    <span className="text-xs text-gray-400 font-medium">• Posted {project.postedDate}</span>
-                    <span className="px-2 py-0.5 rounded bg-emerald-50 text-emerald-700 font-bold text-[10px]">
-                      Escrow Verified
-                    </span>
-                  </div>
-
-                  <h3 className="text-xl font-extrabold text-[var(--color-eulance-navy)]">{project.title}</h3>
-
-                  <p className="text-xs text-gray-600 line-clamp-2 leading-relaxed font-normal">
-                    {project.description}
-                  </p>
-
-                  <div className="flex flex-wrap items-center gap-4 text-xs font-medium text-gray-500 pt-1">
-                    <span>🏢 {project.client} ({project.clientCountry})</span>
-                    <span>⏱️ {project.duration}</span>
-                    <span>🌐 {project.remotePreference}</span>
-                    <span>🎯 Level: {project.experienceLevel}</span>
-                  </div>
-
-                  <div className="flex flex-wrap gap-1.5 pt-2">
-                    {project.skillsRequired.map((skill) => (
-                      <span key={skill} className="px-2.5 py-1 bg-gray-100 text-gray-700 rounded-lg text-[10px] font-bold">
-                        {skill}
-                      </span>
-                    ))}
-                  </div>
-                </div>
-
-                <div className="flex flex-col md:items-end gap-3 w-full md:w-auto shrink-0 border-t md:border-t-0 pt-4 md:pt-0">
-                  <div className="text-left md:text-right">
-                    <span className="text-2xl font-black text-[var(--color-eulance-navy)] block">{project.budget}</span>
-                    <span className="text-[10px] text-gray-400 font-semibold block">Fixed Price • 0% Proposal Fee</span>
-                  </div>
-
-                  <Link
-                    href={`/demo/freelancer/jobs/${project.id}`}
-                    className="px-6 py-3 bg-[var(--color-eulance-navy)] hover:bg-[var(--color-eulance-blue)] text-white rounded-xl text-xs font-extrabold transition-colors shadow-xs text-center flex items-center justify-center gap-2"
-                  >
-                    View & Apply <ArrowRight size={16} />
-                  </Link>
-                </div>
-              </div>
-            ))}
           </div>
 
         </div>

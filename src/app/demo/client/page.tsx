@@ -187,8 +187,8 @@ export default function ClientDashboard() {
                           <Users size={12} /> {project.proposalsCount} Proposals
                         </span>
                         <Link
-                          href="/demo/messages"
-                          className="px-3 py-1.5 bg-gray-100 hover:bg-gray-200 text-[var(--color-eulance-navy)] rounded-lg font-bold text-[11px] transition-colors"
+                          href={`/demo/client/projects/${project.id}`}
+                          className="px-3 py-1.5 bg-[var(--color-eulance-navy)] hover:bg-[var(--color-eulance-blue)] text-white rounded-lg font-bold text-[11px] transition-colors"
                         >
                           View Proposals
                         </Link>

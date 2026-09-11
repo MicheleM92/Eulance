@@ -276,6 +276,20 @@ export const DemoStateProvider: React.FC<{ children: React.ReactNode }> = ({ chi
       setProjects((prev) =>
         prev.map((p) => (p.id === targetContract.projectId ? { ...p, status: "In Progress" } : p))
       );
+      
+      // Inject System Message
+      const systemMessage: MessageItem = {
+        id: `m_${Date.now()}`,
+        conversationId: "conv1",
+        senderId: "system",
+        senderName: "EULANCE System",
+        senderRole: "client", // Faking it as a client role for UI simplicity if "system" isn't supported
+        text: `🔒 Contract for "${targetContract.projectName}" is now ACTIVE. Escrow funds (€${targetContract.clientTotalPaid}) secured.`,
+        timestamp: "Just now",
+      };
+      // To strictly follow type, if senderRole doesn't support "system", we'll just format the text.
+      // Wait, let's just push it to messages.
+      setMessages((prev) => [...prev, systemMessage]);
     }
 
     addNotification("Contract Signed", `Contract is now ACTIVE. Escrow funds secured.`, "success");
@@ -300,6 +314,17 @@ export const DemoStateProvider: React.FC<{ children: React.ReactNode }> = ({ chi
       setProjects((prev) =>
         prev.map((p) => (p.id === targetContract.projectId ? { ...p, status: "Under Review" } : p))
       );
+      
+      const systemMessage: MessageItem = {
+        id: `m_${Date.now()}`,
+        conversationId: "conv1",
+        senderId: "system",
+        senderName: "EULANCE System",
+        senderRole: "freelancer", // visually align right
+        text: `📦 Work Delivered: Milestone 1 deliverables submitted for review. Attachment: ${fileName}`,
+        timestamp: "Just now",
+      };
+      setMessages((prev) => [...prev, systemMessage]);
     }
 
     addNotification("Work Submitted", `Work delivered! Client has been notified for approval.`, "info");
@@ -321,6 +346,17 @@ export const DemoStateProvider: React.FC<{ children: React.ReactNode }> = ({ chi
       setProjects((prev) =>
         prev.map((p) => (p.id === targetContract.projectId ? { ...p, status: "In Progress" } : p))
       );
+      
+      const systemMessage: MessageItem = {
+        id: `m_${Date.now()}`,
+        conversationId: "conv1",
+        senderId: "system",
+        senderName: "EULANCE System",
+        senderRole: "client",
+        text: `⚠️ Revision Requested: The client has requested changes to the deliverables.`,
+        timestamp: "Just now",
+      };
+      setMessages((prev) => [...prev, systemMessage]);
     }
 
     addNotification("Changes Requested", `Freelancer has been notified to revise the deliverables.`, "warning");
@@ -354,6 +390,17 @@ export const DemoStateProvider: React.FC<{ children: React.ReactNode }> = ({ chi
             : f
         )
       );
+      
+      const systemMessage: MessageItem = {
+        id: `m_${Date.now()}`,
+        conversationId: "conv1",
+        senderId: "system",
+        senderName: "EULANCE System",
+        senderRole: "client",
+        text: `✅ Contract Completed! Escrow payout of €${targetContract.freelancerNetPayout} has been released.`,
+        timestamp: "Just now",
+      };
+      setMessages((prev) => [...prev, systemMessage]);
     }
 
     addNotification("Payment Released & Completed", `€${targetContract?.freelancerNetPayout || 950} released to freelancer. Contract completed!`, "success");
